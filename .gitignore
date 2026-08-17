@@ -1,0 +1,15 @@
+# .NET (PortfolioApi)
+PortfolioApi/bin/
+PortfolioApi/obj/
+PortfolioApi/appsettings.Development.json
+
+# Next.js (portfolio-frontend)
+portfolio-frontend/.next/
+portfolio-frontend/node_modules/
+portfolio-frontend/.env*.local
+portfolio-frontend/.env
+
+# General
+*.user
+.vs/
+.vscode/*.log
