@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Color tokens ---- */
+  --color-bg: #0a0a0f;
+  --color-bg-soft: #111118;
+  --color-surface: #16161f;
+  --color-border: #26262f;
+  --color-text: #f2f2f5;
+  --color-text-muted: #9a9aa5;
+  --color-accent: #7c6cf6;
+  --color-accent-soft: #7c6cf61a;
+  --color-accent-hover: #8f81ff;
+
+  /* Light mode overrides applied via [data-theme="light"] below */
+
+  /* ---- Type scale ---- */
+  --font-display: "Geist", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* ---- Spacing / radius ---- */
+  --radius-card: 1rem;
+  --radius-pill: 999px;
+}
+
+[data-theme="light"] {
+  --color-bg: #fafafa;
+  --color-bg-soft: #f2f2f5;
+  --color-surface: #ffffff;
+  --color-border: #e4e4e9;
+  --color-text: #14141a;
+  --color-text-muted: #5c5c68;
+  --color-accent: #6d5ef0;
+  --color-accent-soft: #6d5ef01a;
+  --color-accent-hover: #5b4de0;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reusable primitives */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: white;
+  border-radius: var(--radius-pill);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.badge {
+  display: inline-block;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Subtle dot-grid texture so empty space in shorter sections doesn't feel blank */
+body {
+  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Vertically centers a section's content within a tall viewport instead of
+   leaving it stranded at the top with dead space below on large screens. */
+.section-center {
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .section-center {
+    min-height: 0;
+  }
+}
