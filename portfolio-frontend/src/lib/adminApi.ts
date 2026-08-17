@@ -1,4 +1,8 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5216";
+// Admin calls go through Next.js's own domain (see next.config.ts rewrites),
+// which proxies to the real backend server-side. This keeps the admin session
+// cookie same-origin from the browser's perspective in production, where the
+// frontend and backend live on different domains.
+const API_URL = "";
 
 export interface AdminSession {
   email: string;
@@ -264,7 +268,7 @@ export const adminApi = {
     const formData = new FormData();
     formData.append("file", file);
     if (altText) formData.append("altText", altText);
-    const res = await fetch(`${API_URL}/api/admin/media/upload`, { method: "POST", credentials: "include", body: formData });
+    const res = await fetch(`/api/admin/media/upload`, { method: "POST", credentials: "include", body: formData });
     if (!res.ok) throw new ApiError(res.status, await extractErrorMessage(res, "/api/admin/media/upload"));
     return res.json() as Promise<AdminMediaAsset>;
   },
