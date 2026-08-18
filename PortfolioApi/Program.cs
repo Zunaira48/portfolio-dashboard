@@ -7,10 +7,13 @@ using PortfolioApi.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Render (and most container platforms) assign a port via the PORT env var
-// at runtime — the app must bind to it explicitly, since Kestrel's default
-// ports aren't guaranteed to match what the platform expects.
-var containerPort = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"http://0.0.0.0:{containerPort}");
+// at runtime — only override Kestrel's binding when that variable is actually
+// present, so local dev keeps using launchSettings.json's port (5216) unchanged.
+var containerPort = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(containerPort))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{containerPort}");
+}
 
 // --- Database (Neon Postgres via EF Core) ---
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
