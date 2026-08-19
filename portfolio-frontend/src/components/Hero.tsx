@@ -87,7 +87,7 @@ export default function Hero({ profile, socialLinks }: { profile: Profile; socia
 
         <div className="justify-self-center">
           <div
-            className="w-56 h-56 md:w-72 md:h-72 rounded-3xl overflow-hidden border border-border"
+            className="w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden border border-border"
             style={{ background: "var(--color-surface)" }}
           >
             {profile.profileImageUrl ? (
