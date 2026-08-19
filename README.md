@@ -1,5 +1,14 @@
 # Zunaira Zahid — Portfolio
 
+![.NET](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?logo=tailwindcss&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-4169E1?logo=postgresql&logoColor=white)
+![license](https://img.shields.io/badge/license-Personal-lightgrey)
+![demo](https://img.shields.io/badge/demo-live-brightgreen)
+
 A full-stack personal portfolio with a public site and a secure admin CMS, built to showcase real projects, skills, and experience without needing to edit code for every content update.
 
 **Live site:** https://portfolio-dashboard-six-omega.vercel.app
