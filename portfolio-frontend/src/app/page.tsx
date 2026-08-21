@@ -26,7 +26,7 @@ export default async function Home() {
     <>
       <Nav brandName={settings.NavBrandName ?? profile.fullName} />
       <main>
-        <Hero profile={profile} socialLinks={socialLinks} />
+        <Hero profile={profile} socialLinks={socialLinks} settings={settings} />
         <About profile={profile} settings={settings} />
         <Skills categories={skills} />
         <FeaturedProjects projects={projects} />

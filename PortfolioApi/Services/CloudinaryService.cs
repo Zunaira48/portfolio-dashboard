@@ -51,6 +51,25 @@ public class CloudinaryService : ICloudinaryService
         return new UploadResult { Url = result.SecureUrl.ToString(), PublicId = result.PublicId };
     }
 
+    public async Task<UploadResult> UploadVideoAsync(Stream fileStream, string fileName)
+{
+    var uploadParams = new VideoUploadParams
+    {
+        File = new FileDescription(fileName, fileStream),
+        Folder = "portfolio/videos",
+        UseFilename = false,
+        UniqueFilename = true,
+        Overwrite = false
+    };
+
+    var result = await _cloudinary.UploadAsync(uploadParams);
+
+    if (result.Error is not null)
+        throw new InvalidOperationException($"Cloudinary upload failed: {result.Error.Message}");
+
+    return new UploadResult { Url = result.SecureUrl.ToString(), PublicId = result.PublicId };
+}
+
     public async Task DeleteImageAsync(string publicId)
     {
         var deleteParams = new DeletionParams(publicId);

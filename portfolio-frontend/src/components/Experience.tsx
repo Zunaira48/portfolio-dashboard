@@ -14,9 +14,9 @@ export default function Experience({ items }: { items: ExperienceType[] }) {
 
         <div className="relative max-w-5xl mx-auto">
           {/* Center connecting line — desktop only */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-accent/30" />
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-[color-mix(in_srgb,var(--color-accent)_35%,transparent)]" />
           {/* Left-edge connecting line — mobile only */}
-          <div className="md:hidden absolute left-0 top-0 bottom-0 w-0.5 bg-accent/30" />
+          <div className="md:hidden absolute left-0 top-0 bottom-0 w-0.5 bg-[color-mix(in_srgb,var(--color-accent)_35%,transparent)]" />
 
           <div className="space-y-8 md:space-y-12">
             {items.map((item, i) => {
@@ -25,7 +25,7 @@ export default function Experience({ items }: { items: ExperienceType[] }) {
                 <Reveal key={`${item.company}-${item.startDate}`} delay={i * 100}>
                   <div className="relative pl-8 md:pl-0 md:grid md:grid-cols-2 md:gap-10 items-start">
                     <span
-                      className="absolute left-0 md:left-1/2 top-6 w-3 h-3 rounded-full bg-accent -translate-x-1/2 ring-4 ring-accent-soft z-10"
+                      className="absolute left-0 md:left-1/2 top-6 w-3 h-3 rounded-full -translate-x-1/2 z-10 bg-(--color-accent) shadow-[0_0_0_4px_var(--color-accent-soft)]"
                     />
 
                     <div className={isLeft ? "md:col-start-1" : "md:col-start-2"}>

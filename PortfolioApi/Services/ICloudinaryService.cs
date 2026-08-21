@@ -10,5 +10,6 @@ public interface ICloudinaryService
 {
     Task<UploadResult> UploadImageAsync(Stream fileStream, string fileName);
     Task<UploadResult> UploadRawFileAsync(Stream fileStream, string fileName);
+    Task<UploadResult> UploadVideoAsync(Stream fileStream, string fileName);
     Task DeleteImageAsync(string publicId);
 }

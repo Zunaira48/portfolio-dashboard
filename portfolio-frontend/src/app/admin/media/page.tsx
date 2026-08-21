@@ -68,7 +68,7 @@ export default function AdminMediaPage() {
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/jpeg,image/png,image/webp,application/pdf"
+          accept="image/jpeg,image/png,image/webp,application/pdf,video/mp4,video/webm"
           onChange={handleFileChange}
           className="hidden"
           id="media-upload-input"
@@ -77,8 +77,8 @@ export default function AdminMediaPage() {
           <div className="w-12 h-12 rounded-xl bg-accent-soft flex items-center justify-center">
             {uploading ? <Loader2 size={20} className="animate-spin text-accent" /> : <Upload size={20} className="text-accent" />}
           </div>
-          <span className="text-sm font-semibold">{uploading ? "Uploading..." : "Click to upload an image"}</span>
-          <span className="text-xs text-text-muted">JPEG, PNG, WEBP, or PDF — max 5MB</span>
+          <span className="text-sm font-semibold">{uploading ? "Uploading..." : "Click to upload a file"}</span>
+          <span className="text-xs text-text-muted">JPEG, PNG, WEBP, PDF (max 5MB), or MP4/WEBM video (max 20MB)</span>
         </label>
       </div>
 
@@ -98,6 +98,8 @@ export default function AdminMediaPage() {
                 <div className="w-full h-32 flex items-center justify-center bg-bg-soft">
                   <FileText size={32} className="text-text-muted" />
                 </div>
+              ) : asset.type === "video" ? (
+                <video src={asset.url} muted loop autoPlay playsInline className="w-full h-32 object-cover" />
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={asset.url} alt={asset.altText ?? ""} className="w-full h-32 object-cover" />

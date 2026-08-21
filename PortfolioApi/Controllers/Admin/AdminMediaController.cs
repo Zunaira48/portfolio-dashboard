@@ -13,9 +13,11 @@ namespace PortfolioApi.Controllers.Admin;
 [Authorize(Policy = "AdminOnly")]
 public class AdminMediaController : ControllerBase
 {
-    private const long MaxFileSizeBytes = 5 * 1024 * 1024; // 5MB — generous for a portfolio, protects Cloudinary's free 25 credits/month
+    private const long MaxImageFileSizeBytes = 5 * 1024 * 1024;  // 5MB for images/PDFs
+    private const long MaxVideoFileSizeBytes = 20 * 1024 * 1024; // 20MB for video — a short hero background clip fits comfortably
+    private const long MaxFileSizeBytes = MaxVideoFileSizeBytes; // request-level cap must cover the largest allowed type
 
-    // Real image file signatures ("magic bytes") — checking these instead of trusting
+    // Real file signatures ("magic bytes") — checking these instead of trusting
     // the filename extension is what actually stops someone renaming malware.exe to
     // photo.jpg and uploading it.
     private static readonly Dictionary<string, byte[]> AllowedSignatures = new()
@@ -23,7 +25,9 @@ public class AdminMediaController : ControllerBase
         ["image/jpeg"] = new byte[] { 0xFF, 0xD8, 0xFF },
         ["image/png"] = new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A },
         ["image/webp"] = new byte[] { 0x52, 0x49, 0x46, 0x46 }, // "RIFF" header (WEBP-specific bytes follow at offset 8, checked separately)
-        ["application/pdf"] = new byte[] { 0x25, 0x50, 0x44, 0x46 } // "%PDF"
+        ["application/pdf"] = new byte[] { 0x25, 0x50, 0x44, 0x46 }, // "%PDF"
+        ["video/webm"] = new byte[] { 0x1A, 0x45, 0xDF, 0xA3 }       // EBML header (WebM/Matroska)
+        // MP4 is checked separately below — its signature sits at a variable offset ("ftyp" box), not byte 0
     };
 
     private readonly AppDbContext _db;
@@ -58,30 +62,51 @@ public class AdminMediaController : ControllerBase
         if (file is null || file.Length == 0)
             return BadRequest(new { message = "No file was uploaded." });
 
-        if (file.Length > MaxFileSizeBytes)
-            return BadRequest(new { message = "File exceeds the 5MB size limit." });
-
         await using var stream = file.OpenReadStream();
-        var detectedType = await DetectImageTypeAsync(stream);
+        var detectedType = await DetectFileTypeAsync(stream, file.FileName);
 
         if (detectedType is null)
-            return BadRequest(new { message = "Unsupported or invalid file. Only JPEG, PNG, WEBP images, and PDF documents are allowed." });
+            return BadRequest(new { message = "Unsupported or invalid file. Only JPEG, PNG, WEBP images, PDF documents, and MP4/WEBM videos are allowed." });
+
+        var isVideo = detectedType == "video/mp4" || detectedType == "video/webm";
+        var maxAllowed = isVideo ? MaxVideoFileSizeBytes : MaxImageFileSizeBytes;
+
+        if (file.Length > maxAllowed)
+        {
+            var limitLabel = isVideo ? "20MB" : "5MB";
+            return BadRequest(new { message = $"File exceeds the {limitLabel} size limit for this file type." });
+        }
 
         stream.Position = 0; // reset after reading the header bytes for validation
 
         try
         {
             var isPdf = detectedType == "application/pdf";
-            var result = isPdf
-                ? await _cloudinary.UploadRawFileAsync(stream, file.FileName)
-                : await _cloudinary.UploadImageAsync(stream, file.FileName);
+            UploadResult result;
+            string assetType;
+
+            if (isVideo)
+            {
+                result = await _cloudinary.UploadVideoAsync(stream, file.FileName);
+                assetType = "video";
+            }
+            else if (isPdf)
+            {
+                result = await _cloudinary.UploadRawFileAsync(stream, file.FileName);
+                assetType = "document";
+            }
+            else
+            {
+                result = await _cloudinary.UploadImageAsync(stream, file.FileName);
+                assetType = "image";
+            }
 
             var asset = new MediaAsset
             {
                 PublicId = result.PublicId,
                 Url = result.Url,
                 AltText = altText,
-                Type = isPdf ? "document" : "image",
+                Type = assetType,
                 UploadedAt = DateTime.UtcNow
             };
 
@@ -93,7 +118,7 @@ public class AdminMediaController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Cloudinary upload failed for file {FileName}.", file.FileName);
-            return StatusCode(502, new { message = "Image upload to storage provider failed. Please try again." });
+            return StatusCode(502, new { message = "Upload to storage provider failed. Please try again." });
         }
     }
 
@@ -118,11 +143,16 @@ public class AdminMediaController : ControllerBase
         return NoContent();
     }
 
-    private static async Task<string?> DetectImageTypeAsync(Stream stream)
+    private static async Task<string?> DetectFileTypeAsync(Stream stream, string fileName)
     {
-        var header = new byte[12];
-        var bytesRead = await stream.ReadAsync(header.AsMemory(0, 12));
+        var header = new byte[16];
+        var bytesRead = await stream.ReadAsync(header.AsMemory(0, 16));
         if (bytesRead < 4) return null;
+
+        // MP4's signature isn't at byte 0 — it's the ASCII marker "ftyp" starting at byte 4.
+        var ftypMarker = bytesRead >= 8 ? System.Text.Encoding.ASCII.GetString(header, 4, 4) : "";
+        if (ftypMarker == "ftyp")
+            return "video/mp4";
 
         foreach (var (mimeType, signature) in AllowedSignatures)
         {

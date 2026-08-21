@@ -24,7 +24,16 @@ function SocialLinkItem({ link, Icon }: { link: SocialLink; Icon: React.Componen
   );
 }
 
-export default function Hero({ profile, socialLinks }: { profile: Profile; socialLinks: SocialLink[] }) {
+export default function Hero({
+  profile,
+  socialLinks,
+  settings,
+}: {
+  profile: Profile;
+  socialLinks: SocialLink[];
+  settings: Record<string, string>;
+}) {
+  const heroVideoUrl = settings?.HeroVideoUrl || null;
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
@@ -35,10 +44,28 @@ export default function Hero({ profile, socialLinks }: { profile: Profile; socia
 
   return (
     <section id="top" className="relative overflow-hidden">
-      <div
-        className="absolute -top-40 left-1/2 -translate-x-1/2 w-150 h-150 rounded-full blur-3xl opacity-20 pointer-events-none"
-        style={{ background: "var(--color-accent)" }}
-      />
+      {heroVideoUrl ? (
+        <>
+          <video
+            src={heroVideoUrl}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          />
+          {/* Dims the video and blends its edges into the page background so text stays readable in both themes */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "color-mix(in srgb, var(--color-bg) 78%, transparent)" }}
+          />
+        </>
+      ) : (
+        <div
+          className="absolute -top-40 left-1/2 -translate-x-1/2 w-150 h-150 rounded-full blur-3xl opacity-20 pointer-events-none"
+          style={{ background: "var(--color-accent)" }}
+        />
+      )}
 
       <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-16 grid md:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
         <div>
