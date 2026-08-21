@@ -3,11 +3,11 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
+import FeaturedProjects from "@/components/FeaturedProjects";
 import Experience from "@/components/Experience";
 import Education from "@/components/Education";
 import Certifications from "@/components/Certifications";
-import ContactSection from "@/components/ContactSection";
+import ConnectCTA from "@/components/ConnectCTA";
 import Footer from "@/components/Footer";
 
 export default async function Home() {
@@ -29,11 +29,11 @@ export default async function Home() {
         <Hero profile={profile} socialLinks={socialLinks} />
         <About profile={profile} settings={settings} />
         <Skills categories={skills} />
-        <Projects projects={projects} />
+        <FeaturedProjects projects={projects} />
         <Experience items={experience} />
         <Education items={education} />
         <Certifications items={certifications} />
-        <ContactSection profile={profile} socialLinks={socialLinks} />
+        <ConnectCTA />
       </main>
       <Footer socialLinks={socialLinks} brandName={settings.NavBrandName ?? profile.fullName} profile={profile} />
     </>

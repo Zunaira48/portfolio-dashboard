@@ -73,7 +73,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
   if (projects.length === 0) return null;
 
   return (
-    <section id="projects" className="py-20 md:py-28 px-6">
+    <section id="projects" className="py-12 md:py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <SectionHeading eyebrow="Projects" title="Things I've built" />

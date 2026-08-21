@@ -63,9 +63,9 @@ export default function AdminFormModal({
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
+    <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
       <div
-        className="card max-w-xl w-full max-h-[85vh] overflow-y-auto p-6 relative"
+        className="card max-w-[min(36rem,calc(100vw-1.5rem))] w-full max-h-[85vh] overflow-y-auto p-6 relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -140,7 +140,7 @@ export default function AdminFormModal({
                       type="checkbox"
                       checked={Boolean(values[field.name])}
                       onChange={(e) => update(field.name, e.target.checked)}
-                      className="w-4 h-4 accent-[var(--color-accent)]"
+                      className="w-4 h-4 accent-(--color-accent)"
                     />
                     {field.label}
                   </label>

@@ -7,7 +7,7 @@ export default function Education({ items }: { items: EducationType[] }) {
   if (items.length === 0) return null;
 
   return (
-    <section id="education" className="section-center py-20 md:py-28 px-6">
+    <section id="education" className="section-center py-12 md:py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <SectionHeading eyebrow="Education" title="Academic background" />

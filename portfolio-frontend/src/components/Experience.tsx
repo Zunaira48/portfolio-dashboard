@@ -6,7 +6,7 @@ export default function Experience({ items }: { items: ExperienceType[] }) {
   if (items.length === 0) return null;
 
   return (
-    <section id="experience" className="py-20 md:py-28 px-6 bg-bg-soft">
+    <section id="experience" className="py-12 md:py-16 px-6 bg-bg-soft">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <SectionHeading eyebrow="Experience" title="Where I've worked" />

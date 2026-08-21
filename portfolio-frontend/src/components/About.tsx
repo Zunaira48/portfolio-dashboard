@@ -29,7 +29,7 @@ export default function About({ profile, settings }: { profile: Profile; setting
   const stats = buildStats(settings);
 
   return (
-    <section id="about" className="section-center py-20 md:py-28 px-6">
+    <section id="about" className="section-center py-12 md:py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <SectionHeading eyebrow="About" title="Who I am" />

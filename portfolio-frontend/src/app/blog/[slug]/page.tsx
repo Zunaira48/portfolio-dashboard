@@ -24,7 +24,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <>
       <Nav brandName={settings.NavBrandName ?? profile.fullName} />
-      <main className="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <main className="max-w-3xl mx-auto px-6 py-12 md:py-16">
         <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text mb-8 transition-colors">
           <ArrowLeft size={16} /> Back to Blog
         </Link>

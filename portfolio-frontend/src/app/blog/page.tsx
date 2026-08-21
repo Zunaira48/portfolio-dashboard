@@ -16,7 +16,7 @@ export default async function BlogPage() {
   return (
     <>
       <Nav brandName={settings.NavBrandName ?? profile.fullName} />
-      <main className="max-w-6xl mx-auto px-6 py-20 md:py-28 min-h-[60vh]">
+      <main className="max-w-6xl mx-auto px-6 py-12 md:py-16 min-h-[60vh]">
         <Reveal>
           <SectionHeading eyebrow="Blog" title="Writing" description="Thoughts on development, testing, and building this portfolio." />
         </Reveal>

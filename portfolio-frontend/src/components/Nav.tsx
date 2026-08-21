@@ -8,12 +8,12 @@ import ThemeToggle from "./ThemeToggle";
 const LINKS = [
   { href: "/#about", label: "About" },
   { href: "/#skills", label: "Skills" },
-  { href: "/#projects", label: "Projects" },
+  { href: "/projects", label: "Projects" },
   { href: "/#experience", label: "Experience" },
   { href: "/#education", label: "Education" },
   { href: "/#certifications", label: "Certifications" },
   { href: "/blog", label: "Blog" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/contact", label: "Contact" },
 ];
 
 function NavLink({ href, label }: { href: string; label: string }) {

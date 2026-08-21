@@ -27,7 +27,7 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
       aria-label={project.title}
     >
       <div
-        className="card max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 md:p-8 relative"
+        className="card max-w-[min(42rem,calc(100vw-1.5rem))] w-full max-h-[85vh] overflow-y-auto p-6 md:p-8 relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button

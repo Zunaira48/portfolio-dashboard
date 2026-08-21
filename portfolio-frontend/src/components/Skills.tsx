@@ -79,7 +79,7 @@ export default function Skills({
   if (categories.length === 0) return null;
 
   return (
-    <section id="skills" className="relative py-20 md:py-28 px-6 bg-bg-soft">
+    <section id="skills" className="relative py-12 md:py-16 px-6 bg-bg-soft">
       {/* Subtle visual separation */}
       <div className="absolute inset-x-0 top-0 h-px bg-border" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-border" />

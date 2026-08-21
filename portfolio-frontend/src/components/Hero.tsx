@@ -40,7 +40,7 @@ export default function Hero({ profile, socialLinks }: { profile: Profile; socia
         style={{ background: "var(--color-accent)" }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-20 md:pt-32 md:pb-28 grid md:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
+      <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-16 grid md:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
         <div>
           <span className="badge mb-6 inline-block">{profile.availabilityStatus}</span>
 

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme {
+:root {
   /* ---- Color tokens ---- */
   --color-bg: #0a0a0f;
   --color-bg-soft: #111118;
@@ -119,7 +119,7 @@ body {
 /* Vertically centers a section's content within a tall viewport instead of
    leaving it stranded at the top with dead space below on large screens. */
 .section-center {
-  min-height: 65vh;
+  min-height: 40vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
