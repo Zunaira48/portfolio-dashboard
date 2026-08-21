@@ -40,7 +40,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         <h1 className="font-display text-3xl md:text-4xl font-bold mb-6">{post.title}</h1>
 
-        <div className="text-text-muted text-lg leading-relaxed whitespace-pre-line mb-8">
+        <div className="text-text-muted text-lg leading-relaxed whitespace-pre-line wrap-break-word mb-8">
           {post.content}
         </div>
 
