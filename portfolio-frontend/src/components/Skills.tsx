@@ -36,7 +36,7 @@ function SkillCategoryCard({
 
   return (
     <Reveal delay={index * 80}>
-      <div className="group relative h-full overflow-hidden rounded-2xl border border-border bg-bg p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg">
+      <div className="card group relative h-full overflow-hidden p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg">
         {/* Subtle accent glow */}
         <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-accent/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
@@ -58,11 +58,8 @@ function SkillCategoryCard({
         {/* Skills */}
         <div className="flex flex-wrap gap-2">
           {category.skills.map((skill) => (
-            <span
-              key={skill.name}
-              className="rounded-lg border border-border bg-bg-soft px-3 py-1.5 text-xs font-medium text-text-muted transition-all duration-200 hover:border-accent/50 hover:bg-accent-soft hover:text-text"
-            >
-              {skill.name}
+            <span key={skill.name} className="tag">
+             {skill.name}
             </span>
           ))}
         </div>

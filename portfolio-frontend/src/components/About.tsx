@@ -10,7 +10,7 @@ interface AboutStat {
 
 function buildStats(settings: Record<string, string>): AboutStat[] {
   const stats: AboutStat[] = [];
-  if (settings.YearsExperience) stats.push({ label: "Years Experience", value: settings.YearsExperience });
+  if (settings.YearsExperience) stats.push({ label: "Experience", value: settings.YearsExperience });
   if (settings.ProjectsDelivered) stats.push({ label: "Projects Delivered", value: settings.ProjectsDelivered });
   if (settings.TechnologiesCount) stats.push({ label: "Technologies", value: settings.TechnologiesCount });
   return stats;
@@ -66,7 +66,7 @@ export default function About({ profile, settings }: { profile: Profile; setting
                 <p className="text-xs uppercase tracking-wide text-text-muted mb-2">Focus areas</p>
                 <div className="flex flex-wrap gap-2">
                   {profile.titles.map((title) => (
-                    <span key={title} className="badge">
+                    <span key={title} className="tag">
                       {title}
                     </span>
                   ))}

@@ -3,15 +3,21 @@
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 
-function getInitialTheme(): "dark" | "light" {
-  if (typeof window === "undefined") return "dark"; // SSR-safe default, matches layout.tsx's data-theme="dark"
-  return (localStorage.getItem("theme") as "dark" | "light" | null) ?? "dark";
-}
-
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<"dark" | "light">(getInitialTheme);
+  // Always start matching the server's hardcoded data-theme="dark" in layout.tsx,
+  // so the first client render matches the server HTML exactly (no hydration mismatch).
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
 
-  // Sync the DOM attribute whenever theme changes (including the very first render on the client).
+  // After mount (client-only), read the real saved preference and apply it.
+  useEffect(() => {
+    const saved = localStorage.getItem("theme") as "dark" | "light" | null;
+    if (saved && saved !== "dark") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTheme(saved);
+    }
+  }, []);
+
+  // Sync the DOM attribute whenever theme changes.
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);

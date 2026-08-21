@@ -15,7 +15,36 @@ export interface FieldConfig {
 
 export type FormValues = Record<string, string | number | boolean | string[]>;
 
+  function TagsInput({
+  value,
+  onChange,
+}: {
+  value: string[];
+  onChange: (tags: string[]) => void;
+}) {
+  const [text, setText] = useState(value.join(", "));
 
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const raw = e.target.value;
+    setText(raw);
+    onChange(
+      raw
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+    );
+  }
+
+  return (
+    <input
+      type="text"
+      placeholder="Comma separated, e.g. React, TypeScript, CSS"
+      value={text}
+      onChange={handleChange}
+      className="w-full px-3 py-2 rounded-lg bg-bg-soft border border-border focus:border-accent outline-none transition-colors text-sm"
+    />
+  );
+}
 export default function AdminFormModal({
   title,
   fields,
@@ -44,6 +73,7 @@ export default function AdminFormModal({
       document.body.style.overflow = "";
     };
   }, [onClose]);
+  
 
   function update(name: string, value: string | number | boolean | string[]) {
     setValues((v) => ({ ...v, [name]: value }));
@@ -61,6 +91,7 @@ export default function AdminFormModal({
       setSaving(false);
     }
   }
+
 
   return (
     <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
@@ -115,13 +146,10 @@ export default function AdminFormModal({
                 ) : null}
 
                 {field.type === "tags" ? (
-                  <input
-                    type="text"
-                    placeholder="Comma separated, e.g. React, TypeScript, CSS"
-                    value={Array.isArray(values[field.name]) ? (values[field.name] as string[]).join(", ") : ""}
-                    onChange={(e) => update(field.name, e.target.value.split(",").map((s) => s.trim()).filter(Boolean))}
-                    className="w-full px-3 py-2 rounded-lg bg-bg-soft border border-border focus:border-accent outline-none transition-colors text-sm"
-                  />
+                 <TagsInput
+                value={Array.isArray(values[field.name]) ? (values[field.name] as string[]) : []}
+                onChange={(tags) => update(field.name, tags)}
+                 />
                 ) : null}
 
                 {field.type === "lines" ? (

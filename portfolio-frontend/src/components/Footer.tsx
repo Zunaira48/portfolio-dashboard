@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import type { Profile, SocialLink } from "@/lib/api";
 import { MessageCircle, Camera, Mail } from "lucide-react";
 
@@ -39,20 +39,20 @@ const ICONS: Record<string, React.ComponentType<{ size?: number }>> = {
 };
 
 const QUICK_LINKS = [
-  { href: "#projects", label: "Projects" },
+  { href: "/projects", label: "Projects" },
   { href: "#about", label: "About" },
   { href: "#certifications", label: "Certifications" },
-  { href: "#contact", label: "Contact" },
+  { href: "/contact", label: "Contact" },
 ];
 
 function QuickLink({ href, label }: { href: string; label: string }) {
   return (
-    <a
+    <Link
       href={href}
       className="block text-sm text-text-muted hover:text-text transition-colors"
     >
       {label}
-    </a>
+    </Link>
   );
 }
 
@@ -125,18 +125,13 @@ export default function Footer({
             Connect
           </p>
 
-          <a
-  href={
-    profile.contactEmail
-      ? `mailto:${profile.contactEmail}`
-      : "#"
-  }
-  className="btn-primary w-full inline-flex items-center justify-center gap-2 mb-4 text-sm"
-  aria-label={`Send email to ${profile.contactEmail}`}
->
-  <Mail size={15} />
-  Email Me
-</a>
+          <Link
+            href="/contact"
+            className="btn-primary w-full inline-flex items-center justify-center gap-2 mb-4 text-sm"
+          >
+            <Mail size={15} />
+            Email Me
+          </Link>
 
           <div className="flex gap-2 flex-wrap">
             {socialLinks.map((link) => (

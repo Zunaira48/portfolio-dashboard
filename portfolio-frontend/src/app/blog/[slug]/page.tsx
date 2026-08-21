@@ -47,7 +47,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {post.tags.length > 0 ? (
           <div className="flex flex-wrap gap-2 pt-6 border-t border-border">
             {post.tags.map((tag) => (
-              <span key={tag} className="badge">{tag}</span>
+              <span key={tag} className="tag">{tag}</span>
             ))}
           </div>
         ) : null}

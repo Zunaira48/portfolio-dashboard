@@ -42,7 +42,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
         <div className="flex flex-wrap gap-2 mb-8">
           {project.technologies.map((tech) => (
-            <span key={tech} className="badge">{tech}</span>
+            <span key={tech} className="tag">{tech}</span>
           ))}
         </div>
 
