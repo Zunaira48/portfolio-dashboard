@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { api, type Profile, type SocialLink } from "@/lib/api";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ContactSection from "@/components/ContactSection";
-import { Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 
 export default function ContactPage() {
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -34,6 +35,11 @@ export default function ContactPage() {
     <>
       <Nav brandName={settings.NavBrandName ?? profile.fullName} />
       <main className="min-h-[60vh]">
+        <div className="max-w-5xl mx-auto px-6 pt-8">
+          <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-text-muted hover:text-accent transition-colors">
+            <ArrowLeft size={16} /> Back to Home
+          </Link>
+        </div>
         <ContactSection profile={profile} socialLinks={socialLinks} />
       </main>
       <Footer socialLinks={socialLinks} brandName={settings.NavBrandName ?? profile.fullName} profile={profile} />

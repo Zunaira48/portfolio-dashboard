@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default async function BlogPage() {
   const [settings, profile, socialLinks, posts] = await Promise.all([
@@ -17,6 +18,9 @@ export default async function BlogPage() {
     <>
       <Nav brandName={settings.NavBrandName ?? profile.fullName} />
       <main className="max-w-6xl mx-auto px-6 py-12 md:py-16 min-h-[60vh]">
+        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-text-muted hover:text-accent transition-colors mb-6">
+          <ArrowLeft size={16} /> Back to Home
+        </Link>
         <Reveal>
           <SectionHeading eyebrow="Blog" title="Writing" description="Thoughts on development, testing, and building this portfolio." />
         </Reveal>

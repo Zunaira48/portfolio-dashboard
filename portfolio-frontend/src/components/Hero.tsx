@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import type { Profile, SocialLink } from "@/lib/api";
 import { ArrowRight, Download, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./icons";
@@ -87,9 +88,9 @@ export default function Hero({
             <a href="#projects" className="btn-primary inline-flex items-center gap-2">
               View Projects <ArrowRight size={16} />
             </a>
-            <a href="#contact" className="btn-secondary inline-flex items-center gap-2">
+            <Link href="/contact" className="btn-secondary inline-flex items-center gap-2">
               Contact Me <Mail size={16} />
-            </a>
+            </Link>
             {profile.resumeUrl ? (
               <a
                 href={profile.resumeUrl}

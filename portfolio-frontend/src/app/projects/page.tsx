@@ -7,7 +7,8 @@ import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
-import { Loader2 } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, Loader2 } from "lucide-react";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -42,8 +43,12 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <Nav brandName={settings.NavBrandName ?? profile.fullName} />
-      <main className="max-w-6xl mx-auto px-6 py-16 sm:py-12 md:py-16 min-h-[60vh]">
+      <Nav brandName={settings.NavBrandName ?? profile.fullName}
+       />
+      <main className="max-w-6xl mx-auto px-6 py-10 md:py-14 min-h-[60vh]">
+        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-text-muted hover:text-accent transition-colors mb-6">
+          <ArrowLeft size={16} /> Back to Home
+        </Link>
         <Reveal>
           <SectionHeading eyebrow="Projects" title="Everything I've built" />
         </Reveal>
