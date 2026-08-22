@@ -178,7 +178,7 @@ export default function ContactSection({
         </Reveal>
 
         <div className="grid md:grid-cols-[1.4fr_1fr] gap-8">
-          <Reveal delay={80}>
+          <Reveal delay={80} className="min-w-0">
             <form
               onSubmit={handleSubmit}
               className="card p-6 md:p-8 space-y-5"
@@ -289,7 +289,7 @@ export default function ContactSection({
             </form>
           </Reveal>
 
-          <Reveal delay={140}>
+          <Reveal delay={140} className="min-w-0">
             <ConnectPanel
               profile={profile}
               socialLinks={socialLinks}
