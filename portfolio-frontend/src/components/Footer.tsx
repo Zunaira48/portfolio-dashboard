@@ -40,8 +40,8 @@ const ICONS: Record<string, React.ComponentType<{ size?: number }>> = {
 
 const QUICK_LINKS = [
   { href: "/projects", label: "Projects" },
-  { href: "#about", label: "About" },
-  { href: "#certifications", label: "Certifications" },
+  { href: "/#about", label: "About" },
+  { href: "/#certifications", label: "Certifications" },
   { href: "/contact", label: "Contact" },
 ];
 

@@ -34,7 +34,24 @@ export default function Hero({
   socialLinks: SocialLink[];
   settings: Record<string, string>;
 }) {
-  const heroVideoUrl = settings?.HeroVideoUrl || null;
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const html = document.documentElement;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTheme((html.getAttribute("data-theme") as "dark" | "light") || "dark");
+
+    const observer = new MutationObserver(() => {
+      setTheme((html.getAttribute("data-theme") as "dark" | "light") || "dark");
+    });
+    observer.observe(html, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => observer.disconnect();
+  }, []);
+
+  const heroVideoUrl =
+    theme === "light"
+      ? settings?.HeroVideoUrlLight || settings?.HeroVideoUrl || null
+      : settings?.HeroVideoUrl || null;
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
@@ -46,21 +63,21 @@ export default function Hero({
   return (
     <section id="top" className="relative overflow-hidden">
       {heroVideoUrl ? (
-        <>
+        <div className="absolute inset-x-0 top-0 h-[75vh] max-h-162.5 md:h-full md:max-h-none overflow-hidden pointer-events-none">
           <video
             src={heroVideoUrl}
             autoPlay
             muted
             loop
             playsInline
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            className="w-full h-full object-cover"
           />
           {/* Dims the video and blends its edges into the page background so text stays readable in both themes */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute inset-0"
             style={{ background: "color-mix(in srgb, var(--color-bg) 78%, transparent)" }}
           />
-        </>
+        </div>
       ) : (
         <div
           className="absolute -top-40 left-1/2 -translate-x-1/2 w-150 h-150 rounded-full blur-3xl opacity-20 pointer-events-none"
