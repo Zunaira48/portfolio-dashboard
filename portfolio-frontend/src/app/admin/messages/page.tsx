@@ -3,7 +3,13 @@
 import { useEffect, useState } from "react";
 import { adminApi, type AdminContactMessage } from "@/lib/adminApi";
 import ConfirmDialog from "@/components/admin/ConfirmDialog";
-import { Loader2, Mail, MailOpen, Trash2, Search } from "lucide-react";
+import { Loader2, Mail, MailOpen, Trash2, Search, Reply } from "lucide-react";
+
+function buildReplyMailto(msg: AdminContactMessage) {
+  const subject = msg.subject ? `Re: ${msg.subject}` : "Re: Your message";
+  const body = `Hi ${msg.name},\n\n\n\n---\nOn ${new Date(msg.createdAt).toLocaleString()}, you wrote:\n${msg.message}`;
+  return `mailto:${msg.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
 export default function AdminMessagesPage() {
   const [messages, setMessages] = useState<AdminContactMessage[]>([]);
@@ -117,12 +123,21 @@ export default function AdminMessagesPage() {
                 </div>
               </div>
 
-              <button
-                onClick={() => setExpanded(expanded === msg.id ? null : msg.id)}
-                className="text-xs text-accent font-semibold mt-3"
-              >
-                {expanded === msg.id ? "Hide message" : "View message"}
-              </button>
+              <div className="flex items-center gap-4 mt-3">
+                <button
+                  onClick={() => setExpanded(expanded === msg.id ? null : msg.id)}
+                  className="text-xs text-accent font-semibold"
+                >
+                  {expanded === msg.id ? "Hide message" : "View message"}
+                </button>
+
+                <a
+                  href={buildReplyMailto(msg)}
+                  className="text-xs text-accent font-semibold inline-flex items-center gap-1"
+                >
+                  <Reply size={13} /> Reply by Email
+                </a>
+              </div>
 
               {expanded === msg.id ? (
                 <p className="text-sm text-text-muted mt-2 leading-relaxed whitespace-pre-line border-t border-border pt-3">
