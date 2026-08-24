@@ -102,9 +102,9 @@ export default function Hero({
           </p>
 
           <div className="flex flex-wrap gap-4 mb-8">
-            <a href="#projects" className="btn-primary inline-flex items-center gap-2">
+            <Link href="/projects" className="btn-primary inline-flex items-center gap-2">
               View Projects <ArrowRight size={16} />
-            </a>
+            </Link>
             <Link href="/contact" className="btn-secondary inline-flex items-center gap-2">
               Contact Me <Mail size={16} />
             </Link>
