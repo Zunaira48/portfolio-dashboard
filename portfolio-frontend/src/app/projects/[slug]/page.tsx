@@ -25,20 +25,30 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
   return (
     <>
       <Nav brandName={settings.NavBrandName ?? profile.fullName} />
-      <main className="max-w-3xl mx-auto px-6 py-12 md:py-16">
+      <main className="max-w-5xl mx-auto px-6 py-12 md:py-16">
         <Link href="/projects" className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text mb-8 transition-colors">
           <ArrowLeft size={16} /> Back to Projects
         </Link>
 
         {project.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={project.imageUrl} alt={project.imageAlt ?? project.title} className="w-full h-56 sm:h-72 object-cover rounded-2xl mb-8" />
+          <img src={project.imageUrl} alt={project.imageAlt ?? project.title} className="w-full max-h-130 object-contain rounded-2xl mb-8 bg-bg-soft" />
         ) : null}
 
         <span className="badge mb-4 inline-block">{project.category}</span>
-        <h1 className="font-display text-3xl md:text-4xl font-bold mb-6">{project.title}</h1>
+        <h1 className="font-display text-3xl md:text-4xl font-bold mb-6 text-pretty">{project.title}</h1>
 
-        <p className="text-text-muted text-lg leading-relaxed whitespace-pre-line mb-8">{project.fullDescription}</p>
+        <div className="text-text-muted text-lg leading-relaxed text-justify mb-8 space-y-4">
+          {project.fullDescription.split("\n\n").map((block, i) =>
+            block.trim().startsWith("## ") ? (
+              <p key={i} className="font-display font-bold text-text text-xl text-left!">
+                {block.trim().replace(/^##\s*/, "")}
+              </p>
+            ) : (
+              <p key={i} className="whitespace-pre-line">{block}</p>
+            )
+          )}
+        </div>
 
         <div className="flex flex-wrap gap-2 mb-8">
           {project.technologies.map((tech) => (

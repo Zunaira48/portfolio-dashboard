@@ -16,8 +16,12 @@ export default function Certifications({ items }: { items: Certification[] }) {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((cert, i) => (
             <Reveal key={`${cert.title}-${cert.issueDate}`} delay={i * 80}>
-              <div className="card p-6 h-full flex flex-col">
-                <div className="w-11 h-11 rounded-xl bg-accent-soft flex items-center justify-center mb-4">
+              <div className="card p-6 h-full flex flex-col relative overflow-hidden">
+                <div className="ribbon-wrap">
+                  <span className="ribbon">Certified</span>
+                </div>
+
+                <div className="w-11 h-11 rounded-xl bg-accent-soft flex items-center justify-center mb-4 mt-2">
                   <Award size={20} className="text-accent" />
                 </div>
 
