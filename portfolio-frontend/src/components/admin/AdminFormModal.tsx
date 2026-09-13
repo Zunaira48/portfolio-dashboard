@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
+import RichTextEditor from "./RichTextEditor";
 
-export type FieldType = "text" | "textarea" | "checkbox" | "number" | "tags" | "lines";
+export type FieldType = "text" | "textarea" | "checkbox" | "number" | "tags" | "lines" | "richtext";
 
 export interface FieldConfig {
   name: string;
@@ -150,6 +151,12 @@ export default function AdminFormModal({
                 value={Array.isArray(values[field.name]) ? (values[field.name] as string[]) : []}
                 onChange={(tags) => update(field.name, tags)}
                  />
+                ) : null}
+                                {field.type === "richtext" ? (
+                  <RichTextEditor
+                    value={String(values[field.name] ?? "")}
+                    onChange={(html) => update(field.name, html)}
+                  />
                 ) : null}
 
                 {field.type === "lines" ? (

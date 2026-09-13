@@ -12,7 +12,7 @@ const fields: FieldConfig[] = [
   { name: "startDate", label: "Start Date", type: "text", required: true, helpText: "e.g. 09/2023" },
   { name: "endDate", label: "End Date", type: "text", helpText: "Leave blank if current" },
   { name: "isCurrent", label: "Currently working here", type: "checkbox" },
-  { name: "responsibilities", label: "Responsibilities", type: "lines", helpText: "One responsibility per line" },
+  { name: "responsibilities", label: "Responsibilities", type: "richtext" },
   { name: "technologies", label: "Technologies", type: "tags" },
   { name: "displayOrder", label: "Display Order", type: "number" },
   { name: "published", label: "Published (visible on public site)", type: "checkbox" },
@@ -20,7 +20,7 @@ const fields: FieldConfig[] = [
 
 const emptyValues: FormValues = {
   jobTitle: "", company: "", location: "", employmentType: "", startDate: "", endDate: "",
-  isCurrent: false, responsibilities: [], technologies: [], displayOrder: 0, published: true,
+  isCurrent: false, responsibilities: "", technologies: [], displayOrder: 0, published: true,
 };
 
 function toFormValues(row: AdminExperience): FormValues {

@@ -53,7 +53,7 @@ public class ExperienceDto
     public string StartDate { get; set; } = string.Empty;
     public string? EndDate { get; set; }
     public bool IsCurrent { get; set; }
-    public string[] Responsibilities { get; set; } = Array.Empty<string>();
+    public string Responsibilities { get; set; } = string.Empty;
     public List<string> Technologies { get; set; } = new();
 }
 

@@ -40,7 +40,7 @@ export interface Experience {
   startDate: string;
   endDate: string | null;
   isCurrent: boolean;
-  responsibilities: string[];
+  responsibilities: string;
   technologies: string[];
 }
 

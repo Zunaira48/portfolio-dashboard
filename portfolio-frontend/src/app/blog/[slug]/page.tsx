@@ -40,9 +40,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         <h1 className="font-display text-3xl md:text-4xl font-bold mb-6">{post.title}</h1>
 
-        <div className="text-text-muted text-lg leading-relaxed whitespace-pre-line wrap-break-word mb-8">
-          {post.content}
-        </div>
+        <div
+          className="rich-content text-text-muted text-lg leading-relaxed mb-8"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
 
         {post.tags.length > 0 ? (
           <div className="flex flex-wrap gap-2 pt-6 border-t border-border">

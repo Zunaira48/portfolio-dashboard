@@ -40,14 +40,10 @@ export default function Experience({ items }: { items: ExperienceType[] }) {
                           {item.location ? <span>· {item.location}</span> : null}
                         </p>
 
-                        <ul className="space-y-2 mb-4">
-                          {item.responsibilities.map((r, idx) => (
-                            <li key={idx} className="text-sm text-text-muted leading-relaxed flex gap-2">
-                              <span className="text-accent mt-1.5 shrink-0">▸</span>
-                              <span>{r}</span>
-                            </li>
-                          ))}
-                        </ul>
+                        <div
+                          className="rich-content text-sm text-text-muted leading-relaxed mb-4"
+                          dangerouslySetInnerHTML={{ __html: item.responsibilities }}
+                        />
 
                         {item.technologies.length > 0 ? (
                           <div className="flex flex-wrap gap-2">

@@ -161,12 +161,7 @@ public static class DataSeeder
                     IsCurrent = false,
                     DisplayOrder = 1,
                     Published = true,
-                    Responsibilities = new[]
-                    {
-                        "Coordinated transportation and logistics for incoming and outgoing shipments, including freight forwarding, cargo insurance, and delivery scheduling.",
-                        "Maintained accurate financial and shipping documentation, building strong attention to detail and process discipline directly transferable to QA test documentation and traceability.",
-                        "Collaborated across departments to ensure timely operations, strengthening cross-team communication skills."
-                    }
+                    Responsibilities = "<ul><li>Coordinated transportation and logistics for incoming and outgoing shipments, including freight forwarding, cargo insurance, and delivery scheduling.</li><li>Maintained accurate financial and shipping documentation, building strong attention to detail and process discipline directly transferable to QA test documentation and traceability.</li><li>Collaborated across departments to ensure timely operations, strengthening cross-team communication skills.</li></ul>"
                 },
                 new Experience
                 {
@@ -177,12 +172,7 @@ public static class DataSeeder
                     IsCurrent = false,
                     DisplayOrder = 2,
                     Published = true,
-                    Responsibilities = new[]
-                    {
-                        "Designed and delivered a curriculum covering programming fundamentals, data structures, and computer systems over two years.",
-                        "Applied interactive, technology-driven teaching methods to improve student engagement and comprehension of technical concepts.",
-                        "Prepared structured lesson documentation and collaborated with fellow teachers on joint projects, reinforcing planning and communication skills."
-                    }
+                    Responsibilities = "<ul><li>Designed and delivered a curriculum covering programming fundamentals, data structures, and computer systems over two years.</li><li>Applied interactive, technology-driven teaching methods to improve student engagement and comprehension of technical concepts.</li><li>Prepared structured lesson documentation and collaborated with fellow teachers on joint projects, reinforcing planning and communication skills.</li></ul>"
                 }
             );
         }

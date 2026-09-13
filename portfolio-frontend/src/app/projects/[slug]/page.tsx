@@ -38,17 +38,10 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         <span className="badge mb-4 inline-block">{project.category}</span>
         <h1 className="font-display text-3xl md:text-4xl font-bold mb-6 text-pretty">{project.title}</h1>
 
-        <div className="text-text-muted text-lg leading-relaxed text-justify mb-8 space-y-4">
-          {project.fullDescription.split("\n\n").map((block, i) =>
-            block.trim().startsWith("## ") ? (
-              <p key={i} className="font-display font-bold text-text text-xl text-left!">
-                {block.trim().replace(/^##\s*/, "")}
-              </p>
-            ) : (
-              <p key={i} className="whitespace-pre-line">{block}</p>
-            )
-          )}
-        </div>
+                <div
+          className="rich-content text-text-muted text-lg leading-relaxed text-justify mb-8"
+          dangerouslySetInnerHTML={{ __html: project.fullDescription }}
+        />
 
         <div className="flex flex-wrap gap-2 mb-8">
           {project.technologies.map((tech) => (

@@ -58,7 +58,7 @@ export interface AdminExperience {
   startDate: string;
   endDate: string | null;
   isCurrent: boolean;
-  responsibilities: string[];
+  responsibilities: string;
   displayOrder: number;
   published: boolean;
   technologies: { id: number; name: string }[];

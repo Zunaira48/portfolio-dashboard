@@ -8,7 +8,7 @@ const fields: FieldConfig[] = [
   { name: "title", label: "Title", type: "text", required: true },
   { name: "slug", label: "Slug", type: "text", required: true, helpText: "URL-friendly, e.g. my-post-title" },
   { name: "excerpt", label: "Excerpt", type: "textarea", required: true, helpText: "Short summary shown on the blog list" },
-  { name: "content", label: "Content", type: "textarea", required: true },
+  { name: "content", label: "Content", type: "richtext", required: true },
   { name: "coverImageUrl", label: "Cover Image URL", type: "text", helpText: "Paste a Cloudinary URL from the Media page" },
   { name: "tags", label: "Tags", type: "tags" },
   { name: "published", label: "Published (visible on public site)", type: "checkbox" },
