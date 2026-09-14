@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import RichTextEditor from "./RichTextEditor";
+import UrlListInput from "./UrlListInput";
 
-export type FieldType = "text" | "textarea" | "checkbox" | "number" | "tags" | "lines" | "richtext";
+export type FieldType = "text" | "textarea" | "checkbox" | "number" | "tags" | "lines" | "richtext" | "urlList";
 
 export interface FieldConfig {
   name: string;
@@ -85,7 +86,15 @@ export default function AdminFormModal({
     setSaving(true);
     setError("");
     try {
-      await onSubmit(values);
+      // Strip out any blank boxes left over from clicking "Add another" without
+      // filling it in, for every urlList-type field on this form.
+      const cleaned: FormValues = { ...values };
+      for (const field of fields) {
+        if (field.type === "urlList" && Array.isArray(cleaned[field.name])) {
+          cleaned[field.name] = (cleaned[field.name] as string[]).filter((u) => u.trim().length > 0);
+        }
+      }
+      await onSubmit(cleaned);
       onClose();
     } catch (err) {
       setError(err instanceof Error && err.message ? err.message : "Failed to save. Check the fields and try again.");
@@ -179,6 +188,14 @@ export default function AdminFormModal({
                     />
                     {field.label}
                   </label>
+                ) : null}
+
+
+                {field.type === "urlList" ? (
+                  <UrlListInput
+                    value={Array.isArray(values[field.name]) ? (values[field.name] as string[]) : []}
+                    onChange={(urls) => update(field.name, urls)}
+                  />
                 ) : null}
 
                 {field.helpText ? <p className="text-xs text-text-muted mt-1">{field.helpText}</p> : null}

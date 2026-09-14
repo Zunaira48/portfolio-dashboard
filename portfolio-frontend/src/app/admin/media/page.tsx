@@ -68,7 +68,7 @@ export default function AdminMediaPage() {
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/jpeg,image/png,image/webp,application/pdf,video/mp4,video/webm"
+          accept="image/jpeg,image/png,image/webp,image/gif,application/pdf,video/mp4,video/webm"
           onChange={handleFileChange}
           className="hidden"
           id="media-upload-input"
@@ -78,7 +78,7 @@ export default function AdminMediaPage() {
             {uploading ? <Loader2 size={20} className="animate-spin text-accent" /> : <Upload size={20} className="text-accent" />}
           </div>
           <span className="text-sm font-semibold">{uploading ? "Uploading..." : "Click to upload a file"}</span>
-          <span className="text-xs text-text-muted">JPEG, PNG, WEBP, PDF (max 5MB), or MP4/WEBM video (max 20MB)</span>
+          <span className="text-xs text-text-muted">JPEG, PNG, WEBP (max 5MB), or GIF/MP4/WEBM (max 20MB)</span>
         </label>
       </div>
 

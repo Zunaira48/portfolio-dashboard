@@ -50,7 +50,8 @@ public class AdminProjectsController : ControllerBase
             DisplayOrder = dto.DisplayOrder,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
-            Technologies = dto.Technologies.Select(t => new ProjectTechnology { Name = t }).ToList()
+            Technologies = dto.Technologies.Select(t => new ProjectTechnology { Name = t }).ToList(),
+            GalleryUrls = dto.GalleryUrls,
         };
 
         _db.Projects.Add(project);
@@ -85,6 +86,7 @@ public class AdminProjectsController : ControllerBase
 
         _db.ProjectTechnologies.RemoveRange(project.Technologies);
         project.Technologies = dto.Technologies.Select(t => new ProjectTechnology { Name = t, ProjectId = id }).ToList();
+        project.GalleryUrls = dto.GalleryUrls;
 
         await _db.SaveChangesAsync();
         return NoContent();

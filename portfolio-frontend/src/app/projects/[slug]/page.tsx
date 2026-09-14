@@ -5,6 +5,9 @@ import { GithubIcon } from "@/components/icons";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ProjectHeroMedia from "@/components/ProjectHeroMedia";
+import ProjectGallery from "@/components/ProjectGallery";
+import { isVideoUrl } from "@/lib/media";
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -30,11 +33,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           <ArrowLeft size={16} /> Back to Projects
         </Link>
 
-        {project.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={project.imageUrl} alt={project.imageAlt ?? project.title} className="w-full max-h-130 object-contain rounded-2xl mb-8 bg-bg-soft" />
-        ) : null}
-
+        <ProjectHeroMedia url={project.galleryUrls.find((u) => isVideoUrl(u)) || project.imageUrl} />
         <span className="badge mb-4 inline-block">{project.category}</span>
         <h1 className="font-display text-3xl md:text-4xl font-bold mb-6 text-pretty">{project.title}</h1>
 
@@ -42,6 +41,8 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           className="rich-content text-text-muted text-lg leading-relaxed text-justify mb-8"
           dangerouslySetInnerHTML={{ __html: project.fullDescription }}
         />
+
+        <ProjectGallery urls={project.galleryUrls.filter((u) => !isVideoUrl(u))} />
 
         <div className="flex flex-wrap gap-2 mb-8">
           {project.technologies.map((tech) => (

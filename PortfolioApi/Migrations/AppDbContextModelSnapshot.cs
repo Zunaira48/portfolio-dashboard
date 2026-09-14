@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PortfolioApi.Data;
@@ -374,6 +373,10 @@ namespace PortfolioApi.Migrations
                     b.Property<string>("FullDescription")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.PrimitiveCollection<string[]>("GalleryUrls")
+                        .IsRequired()
+                        .HasColumnType("text[]");
 
                     b.Property<string>("GitHubUrl")
                         .HasColumnType("text");

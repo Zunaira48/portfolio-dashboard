@@ -26,7 +26,8 @@ public class AdminMediaController : ControllerBase
         ["image/png"] = new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A },
         ["image/webp"] = new byte[] { 0x52, 0x49, 0x46, 0x46 }, // "RIFF" header (WEBP-specific bytes follow at offset 8, checked separately)
         ["application/pdf"] = new byte[] { 0x25, 0x50, 0x44, 0x46 }, // "%PDF"
-        ["video/webm"] = new byte[] { 0x1A, 0x45, 0xDF, 0xA3 }       // EBML header (WebM/Matroska)
+        ["video/webm"] = new byte[] { 0x1A, 0x45, 0xDF, 0xA3 },      // EBML header (WebM/Matroska)
+        ["image/gif"] = new byte[] { 0x47, 0x49, 0x46, 0x38 }        // "GIF8" (covers both GIF87a and GIF89a)
         // MP4 is checked separately below — its signature sits at a variable offset ("ftyp" box), not byte 0
     };
 
@@ -69,11 +70,15 @@ public class AdminMediaController : ControllerBase
             return BadRequest(new { message = "Unsupported or invalid file. Only JPEG, PNG, WEBP images, PDF documents, and MP4/WEBM videos are allowed." });
 
         var isVideo = detectedType == "video/mp4" || detectedType == "video/webm";
-        var maxAllowed = isVideo ? MaxVideoFileSizeBytes : MaxImageFileSizeBytes;
+        var isGif = detectedType == "image/gif";
+        // GIFs need more headroom than a static photo but are still uploaded as an "image"
+        // resource in Cloudinary (which natively supports animated GIFs) — only the size
+        // limit is treated like a video.
+        var maxAllowed = (isVideo || isGif) ? MaxVideoFileSizeBytes : MaxImageFileSizeBytes;
 
         if (file.Length > maxAllowed)
         {
-            var limitLabel = isVideo ? "20MB" : "5MB";
+            var limitLabel = (isVideo || isGif) ? "20MB" : "5MB";
             return BadRequest(new { message = $"File exceeds the {limitLabel} size limit for this file type." });
         }
 

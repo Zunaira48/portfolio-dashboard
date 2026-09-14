@@ -29,6 +29,7 @@ export interface AdminProject {
   published: boolean;
   displayOrder: number;
   technologies: AdminProjectTech[];
+  galleryUrls: string[];
 }
 
 export interface AdminSkillCategory {

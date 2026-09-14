@@ -1,17 +1,51 @@
+"use client";
+
+import { useRef } from "react";
 import Link from "next/link";
 import type { Project } from "@/lib/api";
 import { GithubIcon } from "@/components/icons";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
 
+function isVideoUrl(url: string) {
+  return /\.(mp4|webm)(\?|$)/i.test(url);
+}
+
 export default function ProjectCard({ project }: { project: Project }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const previewUrl = project.galleryUrls?.[0] || project.imageUrl;
+  const previewIsVideo = previewUrl ? isVideoUrl(previewUrl) : false;
+
+  function handleEnter() {
+    videoRef.current?.play();
+  }
+  function handleLeave() {
+    if (!videoRef.current) return;
+    videoRef.current.pause();
+    videoRef.current.currentTime = 0;
+  }
+
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="card overflow-hidden flex flex-col h-full hover:border-accent transition-colors group"
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      className="card project-card-hover overflow-hidden flex flex-col h-full group"
     >
-      {project.imageUrl ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={project.imageUrl} alt={project.imageAlt ?? project.title} className="w-full h-40 sm:h-44 object-cover" />
+      {previewUrl ? (
+        previewIsVideo ? (
+          <video
+            ref={videoRef}
+            src={previewUrl}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className="w-full h-40 sm:h-44 object-cover"
+          />
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={previewUrl} alt={project.imageAlt ?? project.title} className="w-full h-40 sm:h-44 object-cover" />
+        )
       ) : null}
 
       <div className="p-5 sm:p-6 flex flex-col flex-1">
@@ -26,7 +60,7 @@ export default function ProjectCard({ project }: { project: Project }) {
         <div className="flex flex-wrap gap-2 mb-5">
           {project.technologies.slice(0, 4).map((tech) => (
             <span key={tech} className="tag">
-            {tech}
+              {tech}
             </span>
           ))}
         </div>

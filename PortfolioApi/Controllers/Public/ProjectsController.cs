@@ -41,11 +41,13 @@ public class ProjectsController : ControllerBase
     {
         Id = p.Id,
         Title = p.Title,
+    
         Slug = p.Slug,
         ShortDescription = p.ShortDescription,
         FullDescription = p.FullDescription,
         ImageUrl = p.ImageUrl,
         ImageAlt = p.ImageAlt,
+        GalleryUrls = p.GalleryUrls,
         GitHubUrl = p.GitHubUrl,
         LiveUrl = p.LiveUrl,
         Category = p.Category,

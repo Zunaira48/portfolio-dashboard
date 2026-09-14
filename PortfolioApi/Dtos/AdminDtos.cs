@@ -29,6 +29,8 @@ public class ProjectUpsertDto
     public bool Published { get; set; } = true;
     public int DisplayOrder { get; set; }
     public List<string> Technologies { get; set; } = new();
+
+        public string[] GalleryUrls { get; set; } = Array.Empty<string>();
 }
 
 // ---------- Skills ----------

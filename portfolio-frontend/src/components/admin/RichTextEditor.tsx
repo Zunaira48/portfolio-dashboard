@@ -9,8 +9,11 @@ import ListItem from "@tiptap/extension-list-item";
 import { DOMParser as ProseMirrorDOMParser } from "@tiptap/pm/model";
 import { Bold, Italic, List, ListOrdered, ChevronDown } from "lucide-react";
 
-// Extends TextStyle with a "fontSize" attribute (px value, typed freely by the user).
-const FontSize = TextStyle.extend({
+// A single combined extension of TextStyle carrying both the fontSize and
+// fontWeight attributes. Having three separate extensions that each secretly
+// register under the same internal name ("textStyle") is what caused the
+// "Duplicate extension names" warning — Tiptap only expects one.
+const CustomTextStyle = TextStyle.extend({
   addAttributes() {
     return {
       ...this.parent?.(),
@@ -22,15 +25,6 @@ const FontSize = TextStyle.extend({
           return { style: `font-size: ${attributes.fontSize}` };
         },
       },
-    };
-  },
-});
-
-// Extends TextStyle with a "fontWeight" attribute (Normal/Medium/Bold as a numeric CSS weight).
-const FontWeight = TextStyle.extend({
-  addAttributes() {
-    return {
-      ...this.parent?.(),
       fontWeight: {
         default: null,
         parseHTML: (element: HTMLElement) => element.style.fontWeight || null,
@@ -151,9 +145,7 @@ export default function RichTextEditor({
     extensions: [
       StarterKit.configure({ listItem: false }),
       PlainListItem,
-      TextStyle,
-      FontSize,
-      FontWeight,
+      CustomTextStyle,
       FontFamily,
     ],
     content: value,

@@ -29,6 +29,8 @@ public class ProjectDto
     public string Category { get; set; } = string.Empty;
     public bool Featured { get; set; }
     public List<string> Technologies { get; set; } = new();
+
+        public string[] GalleryUrls { get; set; } = Array.Empty<string>();
 }
 
 public class SkillDto

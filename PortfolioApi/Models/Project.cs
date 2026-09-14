@@ -19,4 +19,5 @@ public class Project
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     public List<ProjectTechnology> Technologies { get; set; } = new();
+    public string[] GalleryUrls { get; set; } = Array.Empty<string>();
 }

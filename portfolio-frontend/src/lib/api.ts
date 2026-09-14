@@ -25,6 +25,7 @@ export interface Project {
   category: string;
   featured: boolean;
   technologies: string[];
+  galleryUrls: string[];
 }
 
 export interface SkillCategory {
@@ -42,6 +43,7 @@ export interface Experience {
   isCurrent: boolean;
   responsibilities: string;
   technologies: string[];
+
 }
 
 export interface Education {
