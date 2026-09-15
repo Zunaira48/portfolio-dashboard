@@ -10,6 +10,10 @@ import {
   Wrench,
   FileText,
   Sparkles,
+  BrainCircuit,
+  ShieldCheck,
+  Workflow,
+  Rocket,
 } from "lucide-react";
 
 const CATEGORY_ICONS: Record<
@@ -23,6 +27,10 @@ const CATEGORY_ICONS: Record<
   "Core Concepts": Layers,
   "Tools & Platforms": Wrench,
   Documentation: FileText,
+  "AI & Machine Learning": BrainCircuit,
+  "Authentication & Security": ShieldCheck,
+  "Testing & CI/CD": Workflow,
+  "Deployment & DevOps": Rocket,
 };
 
 function SkillCategoryCard({
