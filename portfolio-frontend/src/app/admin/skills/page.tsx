@@ -37,7 +37,17 @@ export default function AdminSkillsPage() {
   }
 
   useEffect(() => {
-    load();
+    let active = true;
+
+    adminApi.getSkillCategories().then((skillCategories) => {
+      if (!active) return;
+      setCategories(skillCategories);
+      setLoading(false);
+    });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   async function handleCategorySubmit(values: FormValues) {
@@ -154,11 +164,11 @@ export default function AdminSkillsPage() {
           fields={skillFields}
           initialValues={
             skillModal.skill === "new"
-              ? { name: "", iconKey: "", proficiency: "", displayOrder: 0, active: true }
+              ? { name: "", iconKey: "", proficiency: null, displayOrder: 0, active: true }
               : {
                   name: skillModal.skill.name,
                   iconKey: skillModal.skill.iconKey ?? "",
-                  proficiency: skillModal.skill.proficiency ?? "",
+                  proficiency: skillModal.skill.proficiency ?? null,
                   displayOrder: skillModal.skill.displayOrder,
                   active: skillModal.skill.active,
                 }

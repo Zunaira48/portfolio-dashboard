@@ -15,7 +15,7 @@ export interface FieldConfig {
   helpText?: string;
 }
 
-export type FormValues = Record<string, string | number | boolean | string[]>;
+export type FormValues = Record<string, string | number | boolean | string[] | null>;
 
   function TagsInput({
   value,
@@ -77,7 +77,7 @@ export default function AdminFormModal({
   }, [onClose]);
   
 
-  function update(name: string, value: string | number | boolean | string[]) {
+  function update(name: string, value: string | number | boolean | string[] | null) {
     setValues((v) => ({ ...v, [name]: value }));
   }
 
@@ -138,8 +138,13 @@ export default function AdminFormModal({
                 {field.type === "text" || field.type === "number" ? (
                   <input
                     type={field.type === "number" ? "number" : "text"}
-                    value={String(values[field.name] ?? "")}
-                    onChange={(e) => update(field.name, field.type === "number" ? Number(e.target.value) : e.target.value)}
+                    value={values[field.name] === null || values[field.name] === undefined ? "" : String(values[field.name])}
+                    onChange={(e) =>
+                      update(
+                        field.name,
+                        field.type === "number" ? (e.target.value === "" ? null : Number(e.target.value)) : e.target.value
+                      )
+                    }
                     required={field.required}
                     className="w-full px-3 py-2 rounded-lg bg-bg-soft border border-border focus:border-accent outline-none transition-colors text-sm"
                   />
