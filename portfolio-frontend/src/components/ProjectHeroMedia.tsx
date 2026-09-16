@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, Play } from "lucide-react";
+import { X } from "lucide-react";
 import { isVideoUrl } from "@/lib/media";
 
 export default function ProjectHeroMedia({ url }: { url: string | null }) {
@@ -33,11 +33,6 @@ export default function ProjectHeroMedia({ url }: { url: string | null }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={url} alt="" className="w-full max-h-130 object-contain" />
         )}
-        {isVideo ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors">
-            <Play size={28} className="text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow" fill="white" />
-          </div>
-        ) : null}
       </button>
 
       {open ? (

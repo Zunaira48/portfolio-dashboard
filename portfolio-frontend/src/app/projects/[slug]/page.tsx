@@ -2,8 +2,8 @@ import { api } from "@/lib/api";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { GithubIcon } from "@/components/icons";
-import { ArrowLeft, ExternalLink } from "lucide-react";
-import Link from "next/link";
+import { ExternalLink } from "lucide-react";
+import BackButton from "@/components/BackButton";
 import { notFound } from "next/navigation";
 import ProjectHeroMedia from "@/components/ProjectHeroMedia";
 import ProjectGallery from "@/components/ProjectGallery";
@@ -29,9 +29,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
     <>
       <Nav brandName={settings.NavBrandName ?? profile.fullName} />
       <main className="max-w-5xl mx-auto px-6 py-12 md:py-16">
-        <Link href="/projects" className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text mb-8 transition-colors">
-          <ArrowLeft size={16} /> Back to Projects
-        </Link>
+        <BackButton fallbackHref="/projects" label="Back to Projects" />
 
         <ProjectHeroMedia url={project.galleryUrls.find((u) => isVideoUrl(u)) || project.imageUrl} />
         <span className="badge mb-4 inline-block">{project.category}</span>
