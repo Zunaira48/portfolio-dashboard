@@ -40,6 +40,10 @@ export default function ProjectCard({ project }: { project: Project }) {
             loop
             playsInline
             preload="metadata"
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload noremoteplayback nofullscreen"
+            onContextMenu={(e) => e.preventDefault()}
             className="w-full h-40 sm:h-44 object-cover"
           />
         ) : (

@@ -17,7 +17,18 @@ export default function ProjectHeroMedia({ url }: { url: string | null }) {
         className="relative w-full rounded-2xl overflow-hidden border border-border mb-8 block group transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_12px_32px_-8px_color-mix(in_srgb,var(--color-accent)_55%,transparent)] cursor-zoom-in bg-bg-soft"
       >
         {isVideo ? (
-          <video src={url} muted loop autoPlay playsInline className="w-full max-h-130 object-contain" />
+          <video
+            src={url}
+            muted
+            loop
+            autoPlay
+            playsInline
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload noremoteplayback nofullscreen"
+            onContextMenu={(e) => e.preventDefault()}
+            className="w-full max-h-130 object-contain"
+          />
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={url} alt="" className="w-full max-h-130 object-contain" />
