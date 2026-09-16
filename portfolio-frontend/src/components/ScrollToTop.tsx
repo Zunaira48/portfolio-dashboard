@@ -20,9 +20,13 @@ export default function ScrollToTop() {
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Back to top"
-      className="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-accent text-white shadow-lg hover:bg-accent-hover transition-colors"
+      className="fixed bottom-6 right-6 z-40 p-3.5 rounded-full text-white transition-all hover:scale-110"
+      style={{
+        background: "var(--color-accent)",
+        boxShadow: "0 8px 24px color-mix(in srgb, var(--color-accent) 55%, transparent)",
+      }}
     >
-      <ArrowUp size={18} />
+      <ArrowUp size={20} />
     </button>
   );
 }

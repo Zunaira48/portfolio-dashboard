@@ -24,12 +24,12 @@
 }
 
 [data-theme="light"] {
-  --color-bg: #fafafa;
-  --color-bg-soft: #f2f2f5;
-  --color-surface: #ffffff;
-  --color-border: #d8d8e0;
-  --color-text: #14141a;
-  --color-text-muted: #5c5c68;
+  --color-bg: #f7f6fb;
+  --color-bg-soft: #efeef7;
+  --color-surface: #fdfdff;
+  --color-border: #ddd9ec;
+  --color-text: #1a1826;
+  --color-text-muted: #5c5870;
   --color-accent: #6d5ef0;
   --color-accent-soft: #6d5ef01a;
   --color-accent-hover: #5b4de0;
