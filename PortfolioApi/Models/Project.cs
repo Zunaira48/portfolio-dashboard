@@ -20,4 +20,5 @@ public class Project
 
     public List<ProjectTechnology> Technologies { get; set; } = new();
     public string[] GalleryUrls { get; set; } = Array.Empty<string>();
+    public string[] ArchitectureFlow { get; set; } = Array.Empty<string>();
 }

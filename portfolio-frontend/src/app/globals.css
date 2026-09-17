@@ -238,3 +238,13 @@ body {
     0 0 0 1px var(--color-accent),
     0 20px 45px 0 color-mix(in srgb, var(--color-accent) 65%, transparent);
 }
+
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.flow-dash {
+  animation: flowDash 1s linear infinite;
+}

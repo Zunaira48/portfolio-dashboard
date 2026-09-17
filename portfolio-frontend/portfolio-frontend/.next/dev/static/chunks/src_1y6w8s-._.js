@@ -57,6 +57,12 @@ const fields = [
         helpText: "Paste a URL from Media Library into each box, or click \"Add another\" for more"
     },
     {
+        name: "architectureFlow",
+        label: "Architecture Flow (optional)",
+        type: "lines",
+        helpText: "One stage per line, in order — e.g. Browser, FastAPI, Embedding Model, PostgreSQL. Renders as an animated diagram on the project page. Leave empty to hide it."
+    },
+    {
         name: "imageUrl",
         label: "Image URL",
         type: "text",
@@ -101,6 +107,7 @@ const emptyValues = {
     category: "",
     technologies: [],
     galleryUrls: [],
+    architectureFlow: [],
     imageUrl: "",
     imageAlt: "",
     gitHubUrl: "",
@@ -118,6 +125,7 @@ function toFormValues(row) {
         category: row.category,
         technologies: row.technologies.map((t)=>t.name),
         galleryUrls: row.galleryUrls,
+        architectureFlow: row.architectureFlow,
         imageUrl: row.imageUrl ?? "",
         imageAlt: row.imageAlt ?? "",
         gitHubUrl: row.gitHubUrl ?? "",
@@ -155,21 +163,21 @@ function AdminProjectsPage() {
                         children: "Published"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/projects/page.tsx",
-                        lineNumber: 54,
+                        lineNumber: 55,
                         columnNumber: 76
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                         className: "text-text-muted text-xs",
                         children: "Draft"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/projects/page.tsx",
-                        lineNumber: 54,
+                        lineNumber: 55,
                         columnNumber: 119
                     }, this)
             }
         ]
     }, void 0, false, {
         fileName: "[project]/src/app/admin/projects/page.tsx",
-        lineNumber: 41,
+        lineNumber: 42,
         columnNumber: 5
     }, this);
 }
@@ -351,8 +359,8 @@ function AdminFormModal({ title, fields, initialValues, onSubmit, onClose }) {
                                     }, this) : null,
                                     field.type === "text" || field.type === "number" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: field.type === "number" ? "number" : "text",
-                                        value: String(values[field.name] ?? ""),
-                                        onChange: (e)=>update(field.name, field.type === "number" ? Number(e.target.value) : e.target.value),
+                                        value: values[field.name] === null || values[field.name] === undefined ? "" : String(values[field.name]),
+                                        onChange: (e)=>update(field.name, field.type === "number" ? e.target.value === "" ? null : Number(e.target.value) : e.target.value),
                                         required: field.required,
                                         className: "w-full px-3 py-2 rounded-lg bg-bg-soft border border-border focus:border-accent outline-none transition-colors text-sm"
                                     }, void 0, false, {
@@ -368,7 +376,7 @@ function AdminFormModal({ title, fields, initialValues, onSubmit, onClose }) {
                                         className: "w-full px-3 py-2 rounded-lg bg-bg-soft border border-border focus:border-accent outline-none transition-colors text-sm resize-none"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                                        lineNumber: 149,
+                                        lineNumber: 154,
                                         columnNumber: 19
                                     }, this) : null,
                                     field.type === "tags" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(TagsInput, {
@@ -376,7 +384,7 @@ function AdminFormModal({ title, fields, initialValues, onSubmit, onClose }) {
                                         onChange: (tags)=>update(field.name, tags)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                                        lineNumber: 159,
+                                        lineNumber: 164,
                                         columnNumber: 18
                                     }, this) : null,
                                     field.type === "richtext" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$admin$2f$RichTextEditor$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -384,7 +392,7 @@ function AdminFormModal({ title, fields, initialValues, onSubmit, onClose }) {
                                         onChange: (html)=>update(field.name, html)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                                        lineNumber: 165,
+                                        lineNumber: 170,
                                         columnNumber: 19
                                     }, this) : null,
                                     field.type === "lines" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -395,7 +403,7 @@ function AdminFormModal({ title, fields, initialValues, onSubmit, onClose }) {
                                         className: "w-full px-3 py-2 rounded-lg bg-bg-soft border border-border focus:border-accent outline-none transition-colors text-sm resize-none"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                                        lineNumber: 172,
+                                        lineNumber: 177,
                                         columnNumber: 19
                                     }, this) : null,
                                     field.type === "checkbox" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -408,14 +416,14 @@ function AdminFormModal({ title, fields, initialValues, onSubmit, onClose }) {
                                                 className: "w-4 h-4 accent-(--color-accent)"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                                                lineNumber: 183,
+                                                lineNumber: 188,
                                                 columnNumber: 21
                                             }, this),
                                             field.label
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                                        lineNumber: 182,
+                                        lineNumber: 187,
                                         columnNumber: 19
                                     }, this) : null,
                                     field.type === "urlList" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$admin$2f$UrlListInput$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -423,7 +431,7 @@ function AdminFormModal({ title, fields, initialValues, onSubmit, onClose }) {
                                         onChange: (urls)=>update(field.name, urls)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                                        lineNumber: 195,
+                                        lineNumber: 200,
                                         columnNumber: 19
                                     }, this) : null,
                                     field.helpText ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -431,7 +439,7 @@ function AdminFormModal({ title, fields, initialValues, onSubmit, onClose }) {
                                         children: field.helpText
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                                        lineNumber: 201,
+                                        lineNumber: 206,
                                         columnNumber: 35
                                     }, this) : null
                                 ]
@@ -446,7 +454,7 @@ function AdminFormModal({ title, fields, initialValues, onSubmit, onClose }) {
                             children: error
                         }, void 0, false, {
                             fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                            lineNumber: 206,
+                            lineNumber: 211,
                             columnNumber: 20
                         }, this) : null,
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -459,7 +467,7 @@ function AdminFormModal({ title, fields, initialValues, onSubmit, onClose }) {
                                     children: saving ? "Saving..." : "Save"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                                    lineNumber: 209,
+                                    lineNumber: 214,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -469,13 +477,13 @@ function AdminFormModal({ title, fields, initialValues, onSubmit, onClose }) {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                                    lineNumber: 212,
+                                    lineNumber: 217,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/admin/AdminFormModal.tsx",
-                            lineNumber: 208,
+                            lineNumber: 213,
                             columnNumber: 11
                         }, this)
                     ]

@@ -31,6 +31,7 @@ public class ProjectUpsertDto
     public List<string> Technologies { get; set; } = new();
 
         public string[] GalleryUrls { get; set; } = Array.Empty<string>();
+    public string[] ArchitectureFlow { get; set; } = Array.Empty<string>();
 }
 
 // ---------- Skills ----------

@@ -12,6 +12,7 @@ const fields: FieldConfig[] = [
   { name: "category", label: "Category", type: "text", required: true },
   { name: "technologies", label: "Technologies", type: "tags" },
   { name: "galleryUrls", label: "Gallery (images, GIFs, or videos)", type: "urlList", helpText: "Paste a URL from Media Library into each box, or click \"Add another\" for more" },
+  { name: "architectureFlow", label: "Architecture Flow (optional)", type: "lines", helpText: "One stage per line, in order — e.g. Browser, FastAPI, Embedding Model, PostgreSQL. Renders as an animated diagram on the project page. Leave empty to hide it." },
   { name: "imageUrl", label: "Image URL", type: "text", helpText: "Paste a Cloudinary URL from the Media page" },
   { name: "imageAlt", label: "Image Alt Text", type: "text" },
   { name: "gitHubUrl", label: "GitHub URL", type: "text" },
@@ -23,7 +24,7 @@ const fields: FieldConfig[] = [
 
 const emptyValues: FormValues = {
   title: "", slug: "", shortDescription: "", fullDescription: "", category: "",
-  technologies: [], galleryUrls: [], imageUrl: "", imageAlt: "", gitHubUrl: "", liveUrl: "",
+  technologies: [], galleryUrls: [], architectureFlow: [], imageUrl: "", imageAlt: "", gitHubUrl: "", liveUrl: "",
   displayOrder: 0, featured: false, published: true,
 };
 
@@ -31,7 +32,7 @@ function toFormValues(row: AdminProject): FormValues {
   return {
     title: row.title, slug: row.slug, shortDescription: row.shortDescription, fullDescription: row.fullDescription,
     category: row.category, technologies: row.technologies.map((t) => t.name),
-    galleryUrls: row.galleryUrls, imageUrl: row.imageUrl ?? "", imageAlt: row.imageAlt ?? "", gitHubUrl: row.gitHubUrl ?? "", liveUrl: row.liveUrl ?? "",
+    galleryUrls: row.galleryUrls, architectureFlow: row.architectureFlow, imageUrl: row.imageUrl ?? "", imageAlt: row.imageAlt ?? "", gitHubUrl: row.gitHubUrl ?? "", liveUrl: row.liveUrl ?? "",
     displayOrder: row.displayOrder, featured: row.featured, published: row.published,
   };
 }

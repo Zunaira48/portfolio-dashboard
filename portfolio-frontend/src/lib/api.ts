@@ -26,6 +26,7 @@ export interface Project {
   featured: boolean;
   technologies: string[];
   galleryUrls: string[];
+  architectureFlow: string[];
 }
 
 export interface SkillCategory {

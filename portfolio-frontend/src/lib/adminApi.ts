@@ -30,6 +30,7 @@ export interface AdminProject {
   displayOrder: number;
   technologies: AdminProjectTech[];
   galleryUrls: string[];
+  architectureFlow: string[];
 }
 
 export interface AdminSkillCategory {

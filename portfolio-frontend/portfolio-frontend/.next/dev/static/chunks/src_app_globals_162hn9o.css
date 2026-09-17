@@ -121,6 +121,7 @@
     --radius-xl: .75rem;
     --radius-2xl: 1rem;
     --animate-spin: spin 1s linear infinite;
+    --animate-ping: ping 1s cubic-bezier(0, 0, .2, 1) infinite;
     --blur-sm: 8px;
     --blur-md: 12px;
     --blur-3xl: 64px;
@@ -454,8 +455,16 @@
     right: calc(var(--spacing) * 4);
   }
 
+  .right-6 {
+    right: calc(var(--spacing) * 6);
+  }
+
   .bottom-0 {
     bottom: 0;
+  }
+
+  .bottom-6 {
+    bottom: calc(var(--spacing) * 6);
   }
 
   .left-0 {
@@ -618,6 +627,14 @@
     height: calc(var(--spacing) * 4);
   }
 
+  .h-6 {
+    height: calc(var(--spacing) * 6);
+  }
+
+  .h-8 {
+    height: calc(var(--spacing) * 8);
+  }
+
   .h-10 {
     height: calc(var(--spacing) * 10);
   }
@@ -720,6 +737,10 @@
 
   .w-4 {
     width: calc(var(--spacing) * 4);
+  }
+
+  .w-6 {
+    width: calc(var(--spacing) * 6);
   }
 
   .w-8 {
@@ -842,6 +863,10 @@
 
   .animate-\[fadeIn_0\.25s_ease\] {
     animation: .25s fadeIn;
+  }
+
+  .animate-ping {
+    animation: var(--animate-ping);
   }
 
   .animate-spin {
@@ -1081,16 +1106,6 @@
     }
   }
 
-  .bg-black\/0 {
-    background-color: #0000;
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-black\/0 {
-      background-color: color-mix(in oklab, var(--color-black) 0%, transparent);
-    }
-  }
-
   .bg-black\/70 {
     background-color: #000000b3;
   }
@@ -1109,6 +1124,10 @@
     .bg-black\/85 {
       background-color: color-mix(in oklab, var(--color-black) 85%, transparent);
     }
+  }
+
+  .bg-green-500 {
+    background-color: var(--color-green-500);
   }
 
   .bg-red-500 {
@@ -1171,6 +1190,10 @@
 
   .p-3 {
     padding: calc(var(--spacing) * 3);
+  }
+
+  .p-3\.5 {
+    padding: calc(var(--spacing) * 3.5);
   }
 
   .p-4 {
@@ -1454,8 +1477,17 @@
     opacity: .2;
   }
 
+  .opacity-75 {
+    opacity: .75;
+  }
+
   .shadow-\[0_0_0_4px_var\(--color-accent-soft\)\] {
     --tw-shadow: 0 0 0 4px var(--tw-shadow-color, var(--color-accent-soft));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+
+  .shadow-\[0_0_16px_-4px_var\(--color-accent\)\] {
+    --tw-shadow: 0 0 16px -4px var(--tw-shadow-color, var(--color-accent));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
 
@@ -1471,12 +1503,6 @@
 
   .blur-3xl {
     --tw-blur: blur(var(--blur-3xl));
-    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
-  }
-
-  .drop-shadow {
-    --tw-drop-shadow-size: drop-shadow(0 1px 2px var(--tw-drop-shadow-color, #0000001a)) drop-shadow(0 1px 1px var(--tw-drop-shadow-color, #0000000f));
-    --tw-drop-shadow: drop-shadow(0 1px 2px #0000001a) drop-shadow(0 1px 1px #0000000f);
     filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
   }
 
@@ -1562,16 +1588,6 @@
       gap: calc(var(--spacing) * 2);
     }
 
-    .group-hover\:bg-black\/10:is(:where(.group):hover *) {
-      background-color: #0000001a;
-    }
-
-    @supports (color: color-mix(in lab, red, red)) {
-      .group-hover\:bg-black\/10:is(:where(.group):hover *) {
-        background-color: color-mix(in oklab, var(--color-black) 10%, transparent);
-      }
-    }
-
     .group-hover\:opacity-100:is(:where(.group):hover *) {
       opacity: 1;
     }
@@ -1591,6 +1607,13 @@
     .hover\:-translate-y-1:hover {
       --tw-translate-y: calc(var(--spacing) * -1);
       translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+
+    .hover\:scale-110:hover {
+      --tw-scale-x: 110%;
+      --tw-scale-y: 110%;
+      --tw-scale-z: 110%;
+      scale: var(--tw-scale-x) var(--tw-scale-y);
     }
 
     .hover\:border-white:hover {
@@ -1621,20 +1644,6 @@
 
     .hover\:text-white:hover {
       color: var(--color-white);
-    }
-
-    .hover\:shadow-\[0_0_0_1px_var\(--color-accent\)\,0_20px_45px_0_color-mix\(in_srgb\,var\(--color-accent\)_65\%\,transparent\)\]:hover {
-      --tw-shadow: 0 0 0 1px var(--tw-shadow-color, var(--color-accent)), 0 20px 45px 0 var(--tw-shadow-color, var(--color-accent));
-    }
-
-    @supports (color: color-mix(in lab, red, red)) {
-      .hover\:shadow-\[0_0_0_1px_var\(--color-accent\)\,0_20px_45px_0_color-mix\(in_srgb\,var\(--color-accent\)_65\%\,transparent\)\]:hover {
-        --tw-shadow: 0 0 0 1px var(--tw-shadow-color, var(--color-accent)), 0 20px 45px 0 var(--tw-shadow-color, color-mix(in srgb,var(--color-accent) 65%,transparent));
-      }
-    }
-
-    .hover\:shadow-\[0_0_0_1px_var\(--color-accent\)\,0_20px_45px_0_color-mix\(in_srgb\,var\(--color-accent\)_65\%\,transparent\)\]:hover {
-      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
 
     .hover\:shadow-\[0_12px_32px_-8px_color-mix\(in_srgb\,var\(--color-accent\)_55\%\,transparent\)\]:hover {
@@ -1767,6 +1776,18 @@
       grid-template-columns: 1.6fr 1fr;
     }
 
+    .md\:flex-row {
+      flex-direction: row;
+    }
+
+    .md\:flex-wrap {
+      flex-wrap: wrap;
+    }
+
+    .md\:gap-0 {
+      gap: 0;
+    }
+
     .md\:gap-6 {
       gap: calc(var(--spacing) * 6);
     }
@@ -1866,12 +1887,12 @@
 }
 
 [data-theme="light"] {
-  --color-bg: #fafafa;
-  --color-bg-soft: #f2f2f5;
-  --color-surface: #fff;
-  --color-border: #d8d8e0;
-  --color-text: #14141a;
-  --color-text-muted: #5c5c68;
+  --color-bg: #f7f6fb;
+  --color-bg-soft: #efeef7;
+  --color-surface: #fdfdff;
+  --color-border: #ddd9ec;
+  --color-text: #1a1826;
+  --color-text-muted: #5c5870;
   --color-accent: #6d5ef0;
   --color-accent-soft: #6d5ef01a;
   --color-accent-hover: #5b4de0;
@@ -1883,14 +1904,14 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2101,6 +2122,16 @@ body {
     box-shadow: 0 0 0 1px var(--color-accent),
     0 20px 45px 0 color-mix(in srgb, var(--color-accent) 65%, transparent);
   }
+}
+
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -24px;
+  }
+}
+
+.flow-dash {
+  animation: 1s linear infinite flowDash;
 }
 
 @property --tw-translate-x {
@@ -2452,6 +2483,13 @@ body {
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    opacity: 0;
+    transform: scale(2);
   }
 }
 

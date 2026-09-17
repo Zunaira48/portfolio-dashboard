@@ -7,6 +7,7 @@ import BackButton from "@/components/BackButton";
 import { notFound } from "next/navigation";
 import ProjectHeroMedia from "@/components/ProjectHeroMedia";
 import ProjectGallery from "@/components/ProjectGallery";
+import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import { isVideoUrl } from "@/lib/media";
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -41,6 +42,8 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         />
 
         <ProjectGallery urls={project.galleryUrls.filter((u) => !isVideoUrl(u))} />
+
+        <ArchitectureDiagram stages={project.architectureFlow} />
 
         <div className="flex flex-wrap gap-2 mb-8">
           {project.technologies.map((tech) => (

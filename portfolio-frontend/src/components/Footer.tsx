@@ -2,6 +2,7 @@
 import Link from "next/link";
 import type { Profile, SocialLink } from "@/lib/api";
 import { MessageCircle, Camera, Mail } from "lucide-react";
+import QaBadge from "./QaBadge";
 
 function GithubIcon({ size = 16 }: { size?: number }) {
   return (
@@ -142,12 +143,17 @@ export default function Footer({
       </div>
 
       <div className="border-t border-border">
-        <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-text-muted">
-          <p>
-            © {year} {profile.fullName}. All rights reserved.
-          </p>
+        <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col gap-4">
+          <div className="flex justify-center">
+            <QaBadge />
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-text-muted">
+            <p>
+              © {year} {profile.fullName}. All rights reserved.
+            </p>
 
-          <p>{profile.availabilityStatus}</p>
+            <p>{profile.availabilityStatus}</p>
+          </div>
         </div>
       </div>
     </footer>

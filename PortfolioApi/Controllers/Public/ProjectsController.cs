@@ -48,6 +48,7 @@ public class ProjectsController : ControllerBase
         ImageUrl = p.ImageUrl,
         ImageAlt = p.ImageAlt,
         GalleryUrls = p.GalleryUrls,
+        ArchitectureFlow = p.ArchitectureFlow,
         GitHubUrl = p.GitHubUrl,
         LiveUrl = p.LiveUrl,
         Category = p.Category,
