@@ -115,9 +115,10 @@ export default function ChatWidget() {
                 <div
                   className={`max-w-[85%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
                     m.role === "user"
-                      ? "bg-accent text-white rounded-br-sm"
+                      ? "text-white rounded-br-sm"
                       : "bg-bg-soft border border-border rounded-bl-sm"
                   }`}
+                  style={m.role === "user" ? { background: "var(--color-accent)" } : undefined}
                 >
                   {m.role === "assistant" ? displayedText[i] ?? m.text : m.text}
                 </div>
