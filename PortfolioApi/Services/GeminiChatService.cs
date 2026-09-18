@@ -96,6 +96,7 @@ public class GeminiChatService : IGeminiChatService
             sb.AppendLine($"TITLES: {string.Join(", ", profile.Titles)}");
             sb.AppendLine($"LOCATION: {profile.Location}");
             sb.AppendLine($"AVAILABILITY: {profile.AvailabilityStatus}");
+            sb.AppendLine($"CONTACT EMAIL: {profile.ContactEmail}");
             sb.AppendLine($"ABOUT: {Truncate(profile.AboutDescription, 800)}");
             sb.AppendLine();
         }
