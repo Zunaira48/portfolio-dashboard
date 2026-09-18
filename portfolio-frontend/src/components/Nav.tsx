@@ -38,7 +38,15 @@ export default function Nav({ brandName = "Zunaira" }: { brandName?: string }) {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-bg/80 border-b border-border">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-display font-bold text-lg tracking-tight">
+        <Link href="/" className="flex items-center gap-2.5 font-display font-bold text-lg tracking-tight">
+          <span
+            className="flex items-center justify-center w-9 h-9 rounded-full text-sm font-bold text-white shrink-0"
+            style={{
+              background: "linear-gradient(135deg, var(--color-accent), var(--color-accent-hover))",
+            }}
+          >
+            ZZ
+          </span>
           {brandName}
         </Link>
 
