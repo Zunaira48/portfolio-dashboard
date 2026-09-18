@@ -15,6 +15,8 @@ const HELP_TEXT = [
   "  whoami                 show who this portfolio belongs to",
   "  skills --list          list skill categories",
   "  projects --featured    list featured projects",
+  "  education              show academic background",
+  "  certifications         list certifications",
   "  sudo hire-me           you know what to do",
   "  clear                  clear the terminal",
   "  exit                   close this terminal",
@@ -89,6 +91,32 @@ export default function TerminalEasterEgg() {
         const featured = projects.filter((p) => p.featured);
         const list = featured.length > 0 ? featured : projects;
         setLines((prev) => [...prev, ...list.map((p) => ({ type: "output" as const, text: `- ${p.title}` }))]);
+      } catch {
+        setLines((prev) => [...prev, { type: "output", text: "Couldn't reach the server. Try again in a moment." }]);
+      }
+    } else if (lower === "education") {
+      try {
+        const education = await api.getEducation();
+        setLines((prev) => [
+          ...prev,
+          ...education.map((e) => ({
+            type: "output" as const,
+            text: `- ${e.degree}, ${e.institution} (${e.startDate} - ${e.endDate ?? "Present"})`,
+          })),
+        ]);
+      } catch {
+        setLines((prev) => [...prev, { type: "output", text: "Couldn't reach the server. Try again in a moment." }]);
+      }
+    } else if (lower === "certifications" || lower === "certification" || lower === "certs") {
+      try {
+        const certifications = await api.getCertifications();
+        setLines((prev) => [
+          ...prev,
+          ...certifications.map((c) => ({
+            type: "output" as const,
+            text: `- ${c.title}${c.issuer ? ` (${c.issuer})` : ""}`,
+          })),
+        ]);
       } catch {
         setLines((prev) => [...prev, { type: "output", text: "Couldn't reach the server. Try again in a moment." }]);
       }

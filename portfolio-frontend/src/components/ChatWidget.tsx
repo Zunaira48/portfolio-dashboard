@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { MessageCircle, Send, X, Bot } from "lucide-react";
+import { MessageCircle, Send, X, Bot, Maximize2, Minimize2 } from "lucide-react";
 import { api, type ChatTurn } from "@/lib/api";
 
 const SUGGESTIONS = [
@@ -20,6 +20,7 @@ export default function ChatWidget() {
   const [loading, setLoading] = useState(false);
   const [displayedText, setDisplayedText] = useState<Record<number, string>>({});
   const [hasNudge, setHasNudge] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -70,8 +71,13 @@ export default function ChatWidget() {
   return (
     <>
       {open ? (
-                <div className="fixed bottom-24 right-6 z-40 w-88 max-w-[calc(100vw-3rem)] h-120 max-h-[70vh] card p-0 flex flex-col overflow-hidden shadow-2xl">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-bg-soft">
+                        <div
+          className={
+            expanded
+              ? "fixed top-0 right-0 bottom-0 z-40 w-full sm:w-104 card p-0 flex flex-col overflow-hidden shadow-2xl rounded-none sm:rounded-l-2xl"
+              : "fixed bottom-24 right-6 z-40 w-88 max-w-[calc(100vw-3rem)] h-120 max-h-[70vh] card p-0 flex flex-col overflow-hidden shadow-2xl"
+          }
+        >          <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-bg-soft">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-accent-soft flex items-center justify-center">
                 <Bot size={16} className="text-accent" />
@@ -81,13 +87,22 @@ export default function ChatWidget() {
                 <p className="text-[10px] text-text-muted leading-tight">Grounded in her real data — I don&apos;t guess.</p>
               </div>
             </div>
-            <button
-              onClick={() => setOpen(false)}
-              aria-label="Close chat"
-              className="p-1.5 rounded-full hover:bg-bg-soft text-text-muted hover:text-text transition-colors"
-            >
-              <X size={16} />
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setExpanded((e) => !e)}
+                aria-label={expanded ? "Collapse chat" : "Expand chat"}
+                className="p-1.5 rounded-full hover:bg-bg-soft text-text-muted hover:text-text transition-colors"
+              >
+                {expanded ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
+              </button>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close chat"
+                className="p-1.5 rounded-full hover:bg-bg-soft text-text-muted hover:text-text transition-colors"
+              >
+                <X size={16} />
+              </button>
+            </div>
           </div>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-3 arch-scroll">
