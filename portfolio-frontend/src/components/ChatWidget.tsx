@@ -158,6 +158,9 @@ export default function ChatWidget() {
               <Send size={16} />
             </button>
           </form>
+          <p className="px-3 pb-2 text-[10px] text-text-muted text-center">
+            Zee can occasionally get things wrong — always verify important details.
+          </p>
         </div>
       ) : null}
 
