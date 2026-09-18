@@ -60,7 +60,7 @@ const fields = [
         name: "architectureFlow",
         label: "Architecture Flow (optional)",
         type: "lines",
-        helpText: "One stage per line, in order — e.g. Browser, FastAPI, Embedding Model, PostgreSQL. Renders as an animated diagram on the project page. Leave empty to hide it."
+        helpText: "One stage per line, in order. Use | to group parallel steps in one stage, and optionally 'Group Title: step | step | step' to label them — e.g. AI Itinerary Planner: Ollama (Llama 3.2) | OpenStreetMap Overpass API | Nominatim Geocoding. Leave empty to hide the diagram."
     },
     {
         name: "imageUrl",

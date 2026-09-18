@@ -1212,6 +1212,10 @@
     padding: calc(var(--spacing) * 8);
   }
 
+  .px-1 {
+    padding-inline: var(--spacing);
+  }
+
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
   }
@@ -1386,6 +1390,10 @@
   .text-xs {
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
+  }
+
+  .text-\[10px\] {
+    font-size: 10px;
   }
 
   .leading-\[1\.1\] {
@@ -1756,6 +1764,10 @@
       width: calc(var(--spacing) * 72);
     }
 
+    .md\:w-max {
+      width: max-content;
+    }
+
     .md\:grid-cols-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -1778,6 +1790,10 @@
 
     .md\:flex-row {
       flex-direction: row;
+    }
+
+    .md\:flex-nowrap {
+      flex-wrap: nowrap;
     }
 
     .md\:flex-wrap {

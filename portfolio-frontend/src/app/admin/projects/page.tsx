@@ -12,7 +12,7 @@ const fields: FieldConfig[] = [
   { name: "category", label: "Category", type: "text", required: true },
   { name: "technologies", label: "Technologies", type: "tags" },
   { name: "galleryUrls", label: "Gallery (images, GIFs, or videos)", type: "urlList", helpText: "Paste a URL from Media Library into each box, or click \"Add another\" for more" },
-  { name: "architectureFlow", label: "Architecture Flow (optional)", type: "lines", helpText: "One stage per line, in order — e.g. Browser, FastAPI, Embedding Model, PostgreSQL. Renders as an animated diagram on the project page. Leave empty to hide it." },
+  { name: "architectureFlow", label: "Architecture Flow (optional)", type: "lines", helpText: "One stage per line, in order. Use | to group parallel steps in one stage, and optionally 'Group Title: step | step | step' to label them — e.g. AI Itinerary Planner: Ollama (Llama 3.2) | OpenStreetMap Overpass API | Nominatim Geocoding. Leave empty to hide the diagram." },
   { name: "imageUrl", label: "Image URL", type: "text", helpText: "Paste a Cloudinary URL from the Media page" },
   { name: "imageAlt", label: "Image Alt Text", type: "text" },
   { name: "gitHubUrl", label: "GitHub URL", type: "text" },

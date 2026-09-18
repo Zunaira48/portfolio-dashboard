@@ -2,7 +2,7 @@ import { Sparkles } from "lucide-react";
 
 const AI_KEYWORDS = [
   "ai", "ml", "model", "embedding", "llm", "gpt", "gemini",
-  "neural", "vector", "rag", "nlp", "inference",
+  "neural", "vector", "rag", "nlp", "inference", "llama", "ollama",
 ];
 
 function isAiStage(stage: string) {
@@ -10,18 +10,58 @@ function isAiStage(stage: string) {
   return AI_KEYWORDS.some((kw) => new RegExp(`\\b${kw}\\b`).test(lower));
 }
 
-function StageBox({ stage }: { stage: string }) {
-  const ai = isAiStage(stage);
+interface ParsedStage {
+  title: string | null;
+  items: string[];
+}
+
+function parseStageLine(raw: string): ParsedStage {
+  if (raw.includes("|")) {
+    const colonIdx = raw.indexOf(":");
+    if (colonIdx > -1) {
+      const title = raw.slice(0, colonIdx).trim();
+      const items = raw.slice(colonIdx + 1).split("|").map((s) => s.trim()).filter(Boolean);
+      if (title && items.length > 1) return { title, items };
+    }
+    return { title: null, items: raw.split("|").map((s) => s.trim()).filter(Boolean) };
+  }
+  return { title: null, items: [raw.trim()] };
+}
+
+function StagePill({ label, small }: { label: string; small?: boolean }) {
+  const ai = isAiStage(label);
   return (
     <div
-      className={`flex items-center justify-center gap-1.5 text-center px-4 py-3 rounded-xl border text-sm font-semibold shrink-0 min-w-28 ${
+      className={`flex items-center justify-center gap-1.5 text-center rounded-lg border font-semibold shrink-0 ${
+        small ? "px-3 py-1.5 text-xs" : "px-4 py-3 text-sm min-w-28"
+      } ${
         ai
           ? "border-accent bg-accent-soft text-accent shadow-[0_0_16px_-4px_var(--color-accent)]"
           : "border-border bg-bg-soft text-text"
       }`}
     >
-      {ai ? <Sparkles size={14} className="shrink-0" /> : null}
-      <span>{stage}</span>
+      {ai ? <Sparkles size={small ? 12 : 14} className="shrink-0" /> : null}
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function StageGroup({ stage }: { stage: ParsedStage }) {
+  if (stage.items.length === 1 && !stage.title) {
+    return <StagePill label={stage.items[0]} />;
+  }
+  return (
+    <div className="flex flex-col gap-1.5 p-2.5 rounded-xl border border-dashed border-border shrink-0">
+      {stage.title ? (
+        <p className="text-[10px] uppercase tracking-wide text-text-muted font-semibold text-center px-1">
+          {stage.title}
+        </p>
+      ) : null}
+      <div className="flex flex-col gap-1.5">
+        {stage.items.map((label, i) => (
+          <StagePill key={i} label={label} small />
+        ))}
+      </div>
     </div>
   );
 }
@@ -47,26 +87,28 @@ function VerticalConnector() {
 }
 
 export default function ArchitectureDiagram({ stages }: { stages: string[] }) {
-  const clean = stages.map((s) => s.trim()).filter(Boolean);
-  if (clean.length < 2) return null;
+  const parsed = stages.map((s) => s.trim()).filter(Boolean).map(parseStageLine);
+  if (parsed.length < 2) return null;
 
   return (
     <div className="mb-8">
       <p className="text-xs uppercase tracking-wide text-accent font-semibold mb-4">
         Architecture
       </p>
-      <div className="card p-5 flex flex-col md:flex-row md:flex-wrap items-center gap-1 md:gap-0">
-        {clean.map((stage, i) => (
-          <div key={i} className="flex flex-col md:flex-row items-center">
-            <StageBox stage={stage} />
-            {i < clean.length - 1 ? (
-              <>
-                <HorizontalConnector />
-                <VerticalConnector />
-              </>
-            ) : null}
-          </div>
-        ))}
+      <div className="card p-5 overflow-x-auto">
+        <div className="flex flex-col md:flex-row md:flex-nowrap items-center gap-1 md:gap-0 md:w-max">
+          {parsed.map((stage, i) => (
+            <div key={i} className="flex flex-col md:flex-row items-center">
+              <StageGroup stage={stage} />
+              {i < parsed.length - 1 ? (
+                <>
+                  <HorizontalConnector />
+                  <VerticalConnector />
+                </>
+              ) : null}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
