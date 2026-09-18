@@ -43,7 +43,7 @@ public class GeminiChatService : IGeminiChatService
         {
             system_instruction = new { parts = new[] { new { text = systemPrompt } } },
             contents,
-            generationConfig = new { temperature = 0.4, maxOutputTokens = 350 }
+            generationConfig = new { temperature = 0.4, maxOutputTokens = 500, thinkingConfig = new { thinkingBudget = 0 } }
         };
 
         var url = $"https://generativelanguage.googleapis.com/v1beta/models/{_model}:generateContent?key={_apiKey}";
