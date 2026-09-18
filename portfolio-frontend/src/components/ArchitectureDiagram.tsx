@@ -95,7 +95,7 @@ export default function ArchitectureDiagram({ stages }: { stages: string[] }) {
       <p className="text-xs uppercase tracking-wide text-accent font-semibold mb-4">
         Architecture
       </p>
-      <div className="card p-5 overflow-x-auto">
+      <div className="card p-5 overflow-x-auto arch-scroll">
         <div className="flex flex-col md:flex-row md:flex-nowrap items-center gap-1 md:gap-0 md:w-max">
           {parsed.map((stage, i) => (
             <div key={i} className="flex flex-col md:flex-row items-center">

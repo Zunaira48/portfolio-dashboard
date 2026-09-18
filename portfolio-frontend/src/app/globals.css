@@ -248,3 +248,21 @@ body {
 .flow-dash {
   animation: flowDash 1s linear infinite;
 }
+
+.arch-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent) transparent;
+}
+
+.arch-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.arch-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.arch-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent);
+  border-radius: 999px;
+}
