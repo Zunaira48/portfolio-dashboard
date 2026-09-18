@@ -107,6 +107,15 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+export interface ChatTurn {
+  role: "user" | "assistant";
+  text: string;
+}
+
+export interface ChatResponse {
+  reply: string;
+}
+
 export const api = {
   getSiteSettings: () => apiFetch<Record<string, string>>("/api/site-settings"),
   getBlogPosts: () => apiFetch<BlogPostSummary[]>("/api/blog"),
@@ -124,4 +133,16 @@ export const api = {
       method: "POST",
       body: JSON.stringify(data),
     }),
+  askChatbot: async (message: string, history: ChatTurn[]): Promise<ChatResponse> => {
+    const res = await fetch(`${API_URL}/api/chatbot/ask`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message, history }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message ?? "Something went wrong — please try again.");
+    }
+    return data as ChatResponse;
+  },
 };

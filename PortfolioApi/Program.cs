@@ -71,6 +71,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IGoogleAuthService, GoogleAuthService>();
 builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
+builder.Services.AddHttpClient<IGeminiChatService, GeminiChatService>();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

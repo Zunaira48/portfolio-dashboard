@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ScrollToTop from "@/components/ScrollToTop";
+import ChatWidget from "@/components/ChatWidget";
 
 export const metadata: Metadata = {
   title: "Zunaira Zahid — Software Engineer & QA Engineer",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <ScrollToTop />
+        <ChatWidget />
       </body>
     </html>
   );
