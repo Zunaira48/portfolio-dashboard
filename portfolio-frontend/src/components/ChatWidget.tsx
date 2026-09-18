@@ -71,13 +71,13 @@ export default function ChatWidget() {
   return (
     <>
       {open ? (
-                        <div
+                                <div
           className={
             expanded
-              ? "fixed top-0 right-0 bottom-0 z-40 w-full sm:w-104 card p-0 flex flex-col overflow-hidden shadow-2xl rounded-none sm:rounded-l-2xl"
+              ? "fixed top-16 right-0 bottom-0 z-40 w-full sm:w-104 card p-0 flex flex-col overflow-hidden shadow-2xl rounded-none sm:rounded-l-2xl"
               : "fixed bottom-24 right-6 z-40 w-88 max-w-[calc(100vw-3rem)] h-120 max-h-[70vh] card p-0 flex flex-col overflow-hidden shadow-2xl"
           }
-        >          <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-bg-soft">
+        >         <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-bg-soft">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-accent-soft flex items-center justify-center">
                 <Bot size={16} className="text-accent" />
