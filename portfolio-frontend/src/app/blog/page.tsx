@@ -31,7 +31,7 @@ export default async function BlogPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post, i) => (
               <Reveal key={post.slug} delay={i * 60}>
-                <Link href={`/blog/${post.slug}`} className="card overflow-hidden flex flex-col h-full hover:border-accent transition-colors">
+                <Link href={`/blog/${post.slug}`} className="card overflow-hidden flex flex-col h-full project-card-hover">
                   {post.coverImageUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={post.coverImageUrl} alt={post.title} className="w-full h-40 object-cover" />
