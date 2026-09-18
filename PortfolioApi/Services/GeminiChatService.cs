@@ -97,7 +97,23 @@ public class GeminiChatService : IGeminiChatService
             sb.AppendLine($"LOCATION: {profile.Location}");
             sb.AppendLine($"AVAILABILITY: {profile.AvailabilityStatus}");
             sb.AppendLine($"CONTACT EMAIL: {profile.ContactEmail}");
+            if (!string.IsNullOrWhiteSpace(profile.ResumeUrl))
+                sb.AppendLine($"RESUME/CV URL: {profile.ResumeUrl}");
             sb.AppendLine($"ABOUT: {Truncate(profile.AboutDescription, 800)}");
+            sb.AppendLine();
+        }
+
+        var socialLinks = await _db.SocialLinks
+            .Where(s => s.Active)
+            .OrderBy(s => s.DisplayOrder)
+            .AsNoTracking()
+            .ToListAsync();
+
+        if (socialLinks.Count > 0)
+        {
+            sb.AppendLine("SOCIAL / PROFILE LINKS:");
+            foreach (var s in socialLinks)
+                sb.AppendLine($"- {s.Platform}: {s.Url}");
             sb.AppendLine();
         }
 
@@ -131,10 +147,14 @@ public class GeminiChatService : IGeminiChatService
             sb.AppendLine("PROJECTS:");
             foreach (var p in projects)
             {
-                sb.AppendLine($"- {p.Title} ({p.Category}): {Truncate(p.ShortDescription, 300)}");
+                sb.AppendLine($"- {p.Title} ({p.Category}){(p.Featured ? " [Featured]" : "")}: {Truncate(p.ShortDescription, 300)}");
                 sb.AppendLine($"  Tech: {string.Join(", ", p.Technologies.Select(t => t.Name))}");
                 if (p.ArchitectureFlow.Length > 0)
                     sb.AppendLine($"  Architecture: {string.Join(" -> ", p.ArchitectureFlow)}");
+                if (!string.IsNullOrWhiteSpace(p.GitHubUrl))
+                    sb.AppendLine($"  GitHub: {p.GitHubUrl}");
+                if (!string.IsNullOrWhiteSpace(p.LiveUrl))
+                    sb.AppendLine($"  Live demo: {p.LiveUrl}");
             }
             sb.AppendLine();
         }
@@ -168,7 +188,13 @@ public class GeminiChatService : IGeminiChatService
         {
             sb.AppendLine("EDUCATION:");
             foreach (var ed in education)
+            {
                 sb.AppendLine($"- {ed.Degree}, {ed.Institution} ({ed.StartDate} - {ed.EndDate ?? "Present"})");
+                if (!string.IsNullOrWhiteSpace(ed.Specialization))
+                    sb.AppendLine($"  Specialization: {ed.Specialization}");
+                if (!string.IsNullOrWhiteSpace(ed.Description))
+                    sb.AppendLine($"  {Truncate(ed.Description, 250)}");
+            }
             sb.AppendLine();
         }
 
@@ -182,7 +208,32 @@ public class GeminiChatService : IGeminiChatService
         {
             sb.AppendLine("CERTIFICATIONS:");
             foreach (var c in certifications)
-                sb.AppendLine($"- {c.Title} ({c.Issuer}, {c.IssueDate})");
+            {
+                var expiry = string.IsNullOrWhiteSpace(c.ExpiryDate) ? "" : $" - expires {c.ExpiryDate}";
+                sb.AppendLine($"- {c.Title} ({c.Issuer}, issued {c.IssueDate}{expiry})");
+                if (!string.IsNullOrWhiteSpace(c.Description))
+                    sb.AppendLine($"  {Truncate(c.Description, 200)}");
+                if (!string.IsNullOrWhiteSpace(c.CredentialUrl))
+                    sb.AppendLine($"  Credential link: {c.CredentialUrl}");
+            }
+            sb.AppendLine();
+        }
+
+        var blogPosts = await _db.BlogPosts
+            .Where(b => b.Published)
+            .OrderByDescending(b => b.PublishedAt)
+            .AsNoTracking()
+            .ToListAsync();
+
+        if (blogPosts.Count > 0)
+        {
+            sb.AppendLine("BLOG POSTS:");
+            foreach (var b in blogPosts)
+            {
+                sb.AppendLine($"- \"{b.Title}\": {Truncate(b.Excerpt, 200)}");
+                if (b.Tags.Length > 0)
+                    sb.AppendLine($"  Tags: {string.Join(", ", b.Tags)}");
+            }
         }
 
         return sb.ToString();
